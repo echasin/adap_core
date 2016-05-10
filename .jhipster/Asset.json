@@ -1,0 +1,21 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        }
+    ],
+    "changelogDate": "20160510172610",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "asset",
+    "pagination": "pagination",
+    "microserviceName": "adap_core",
+    "searchEngine": "elasticsearch"
+}

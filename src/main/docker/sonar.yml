@@ -1,0 +1,8 @@
+version: '2'
+services:
+    adap_core-sonar:
+        container_name: adap_core-sonar
+        image: sonarqube:5.3
+        ports:
+            - 9000:9000
+            - 9092:9092
