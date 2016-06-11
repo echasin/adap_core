@@ -14,17 +14,13 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Asset.
+        Added the entity Score.
     -->
     <changeSet id="20160510172610-1" author="jhipster">
-        <createTable tableName="asset">
+        <createTable tableName="score">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
-            
             <column name="recordtype" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
@@ -45,11 +41,17 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="value" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="asset_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="asset" columnName="lastmodifieddatetime" columnDataType="datetime"/>
-              
+        <dropDefaultValue tableName="score" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        
     </changeSet>
-    
-    
 </databaseChangeLog>

@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,29 +8,22 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Asset.
+ * A Score.
  */
 @Entity
-@Table(name = "asset")
+@Table(name = "score")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "asset")
-public class Asset implements Serializable {
+@Document(indexName = "score")
+public class Score implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
 
     @NotNull
     @Size(max = 50)
@@ -57,15 +49,12 @@ public class Asset implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Location> locations = new HashSet<>();
+    @NotNull
+    @Column(name = "value", nullable = false)
+    private Long value;
 
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Score> scores = new HashSet<>();
+    @ManyToOne
+    private Asset asset;
 
     public Long getId() {
         return id;
@@ -73,14 +62,6 @@ public class Asset implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getRecordtype() {
@@ -123,20 +104,20 @@ public class Asset implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Location> getLocations() {
-        return locations;
+    public Long getValue() {
+        return value;
     }
 
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
+    public void setValue(Long value) {
+        this.value = value;
     }
 
-    public Set<Score> getScores() {
-        return scores;
+    public Asset getAsset() {
+        return asset;
     }
 
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 
     @Override
@@ -147,11 +128,11 @@ public class Asset implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Asset asset = (Asset) o;
-        if(asset.id == null || id == null) {
+        Score score = (Score) o;
+        if(score.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, asset.id);
+        return Objects.equals(id, score.id);
     }
 
     @Override
@@ -161,14 +142,14 @@ public class Asset implements Serializable {
 
     @Override
     public String toString() {
-        return "Asset{" +
+        return "Score{" +
             "id=" + id +
-            ", name='" + name + "'" +
             ", recordtype='" + recordtype + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
+            ", value='" + value + "'" +
             '}';
     }
 }

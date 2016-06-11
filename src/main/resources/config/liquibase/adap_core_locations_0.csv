@@ -1,0 +1,3 @@
+id, recordtype, addressline_1, addressline_2, statecode, status,lastmodifiedby,lastmodifieddatetime,domain,asset_id
+1002,"Geospatial","One Main Street","","MD","Active","echasin","2016-06-09 00:01:00","DEMO",1000
+1003,"Network","","","","Active","echasin","2016-06-09 00:00:00","DEMO",1001

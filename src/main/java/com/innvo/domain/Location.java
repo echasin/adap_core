@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,18 +8,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Asset.
+ * A Location.
  */
 @Entity
-@Table(name = "asset")
+@Table(name = "location")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "asset")
-public class Asset implements Serializable {
+@Document(indexName = "location")
+public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,13 +27,20 @@ public class Asset implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
-
-    @NotNull
-    @Size(max = 50)
     @Column(name = "recordtype", length = 50, nullable = false)
     private String recordtype;
+
+    @Size(max = 100)
+    @Column(name = "addressline_1", length = 100)
+    private String addressline1;
+
+    @Size(max = 100)
+    @Column(name = "addressline_2", length = 100)
+    private String addressline2;
+
+    @Size(max = 50)
+    @Column(name = "statecode", length = 50)
+    private String statecode;
 
     @NotNull
     @Size(max = 25)
@@ -57,15 +61,8 @@ public class Asset implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Location> locations = new HashSet<>();
-
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Score> scores = new HashSet<>();
+    @ManyToOne
+    private Asset asset;
 
     public Long getId() {
         return id;
@@ -75,20 +72,36 @@ public class Asset implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRecordtype() {
         return recordtype;
     }
 
     public void setRecordtype(String recordtype) {
         this.recordtype = recordtype;
+    }
+
+    public String getAddressline1() {
+        return addressline1;
+    }
+
+    public void setAddressline1(String addressline1) {
+        this.addressline1 = addressline1;
+    }
+
+    public String getAddressline2() {
+        return addressline2;
+    }
+
+    public void setAddressline2(String addressline2) {
+        this.addressline2 = addressline2;
+    }
+
+    public String getStatecode() {
+        return statecode;
+    }
+
+    public void setStatecode(String statecode) {
+        this.statecode = statecode;
     }
 
     public String getStatus() {
@@ -123,20 +136,12 @@ public class Asset implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Location> getLocations() {
-        return locations;
+    public Asset getAsset() {
+        return asset;
     }
 
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
-    }
-
-    public Set<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 
     @Override
@@ -147,11 +152,11 @@ public class Asset implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Asset asset = (Asset) o;
-        if(asset.id == null || id == null) {
+        Location location = (Location) o;
+        if(location.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, asset.id);
+        return Objects.equals(id, location.id);
     }
 
     @Override
@@ -161,10 +166,12 @@ public class Asset implements Serializable {
 
     @Override
     public String toString() {
-        return "Asset{" +
+        return "Location{" +
             "id=" + id +
-            ", name='" + name + "'" +
             ", recordtype='" + recordtype + "'" +
+            ", addressline1='" + addressline1 + "'" +
+            ", addressline2='" + addressline2 + "'" +
+            ", statecode='" + statecode + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

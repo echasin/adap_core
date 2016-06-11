@@ -24,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,8 +46,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class AssetResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_RECORDTYPE = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_RECORDTYPE = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_LASTMODIFIEDBY = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_LASTMODIFIEDDATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_LASTMODIFIEDDATETIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
+    private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private AssetRepository assetRepository;
@@ -77,6 +95,11 @@ public class AssetResourceIntTest {
         assetSearchRepository.deleteAll();
         asset = new Asset();
         asset.setName(DEFAULT_NAME);
+        asset.setRecordtype(DEFAULT_RECORDTYPE);
+        asset.setStatus(DEFAULT_STATUS);
+        asset.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
+        asset.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
+        asset.setDomain(DEFAULT_DOMAIN);
     }
 
     @Test
@@ -96,6 +119,11 @@ public class AssetResourceIntTest {
         assertThat(assets).hasSize(databaseSizeBeforeCreate + 1);
         Asset testAsset = assets.get(assets.size() - 1);
         assertThat(testAsset.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testAsset.getRecordtype()).isEqualTo(DEFAULT_RECORDTYPE);
+        assertThat(testAsset.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAsset.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
+        assertThat(testAsset.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
+        assertThat(testAsset.getDomain()).isEqualTo(DEFAULT_DOMAIN);
 
         // Validate the Asset in ElasticSearch
         Asset assetEs = assetSearchRepository.findOne(testAsset.getId());
@@ -122,6 +150,96 @@ public class AssetResourceIntTest {
 
     @Test
     @Transactional
+    public void checkRecordtypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = assetRepository.findAll().size();
+        // set the field null
+        asset.setRecordtype(null);
+
+        // Create the Asset, which fails.
+
+        restAssetMockMvc.perform(post("/api/assets")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+
+        List<Asset> assets = assetRepository.findAll();
+        assertThat(assets).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = assetRepository.findAll().size();
+        // set the field null
+        asset.setStatus(null);
+
+        // Create the Asset, which fails.
+
+        restAssetMockMvc.perform(post("/api/assets")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+
+        List<Asset> assets = assetRepository.findAll();
+        assertThat(assets).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifiedbyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = assetRepository.findAll().size();
+        // set the field null
+        asset.setLastmodifiedby(null);
+
+        // Create the Asset, which fails.
+
+        restAssetMockMvc.perform(post("/api/assets")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+
+        List<Asset> assets = assetRepository.findAll();
+        assertThat(assets).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifieddatetimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = assetRepository.findAll().size();
+        // set the field null
+        asset.setLastmodifieddatetime(null);
+
+        // Create the Asset, which fails.
+
+        restAssetMockMvc.perform(post("/api/assets")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+
+        List<Asset> assets = assetRepository.findAll();
+        assertThat(assets).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDomainIsRequired() throws Exception {
+        int databaseSizeBeforeTest = assetRepository.findAll().size();
+        // set the field null
+        asset.setDomain(null);
+
+        // Create the Asset, which fails.
+
+        restAssetMockMvc.perform(post("/api/assets")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+
+        List<Asset> assets = assetRepository.findAll();
+        assertThat(assets).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllAssets() throws Exception {
         // Initialize the database
         assetRepository.saveAndFlush(asset);
@@ -131,7 +249,12 @@ public class AssetResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].recordtype").value(hasItem(DEFAULT_RECORDTYPE.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -145,7 +268,12 @@ public class AssetResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(asset.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.recordtype").value(DEFAULT_RECORDTYPE.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
+            .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
     @Test
@@ -168,6 +296,11 @@ public class AssetResourceIntTest {
         Asset updatedAsset = new Asset();
         updatedAsset.setId(asset.getId());
         updatedAsset.setName(UPDATED_NAME);
+        updatedAsset.setRecordtype(UPDATED_RECORDTYPE);
+        updatedAsset.setStatus(UPDATED_STATUS);
+        updatedAsset.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
+        updatedAsset.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
+        updatedAsset.setDomain(UPDATED_DOMAIN);
 
         restAssetMockMvc.perform(put("/api/assets")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -179,6 +312,11 @@ public class AssetResourceIntTest {
         assertThat(assets).hasSize(databaseSizeBeforeUpdate);
         Asset testAsset = assets.get(assets.size() - 1);
         assertThat(testAsset.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testAsset.getRecordtype()).isEqualTo(UPDATED_RECORDTYPE);
+        assertThat(testAsset.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAsset.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
+        assertThat(testAsset.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
+        assertThat(testAsset.getDomain()).isEqualTo(UPDATED_DOMAIN);
 
         // Validate the Asset in ElasticSearch
         Asset assetEs = assetSearchRepository.findOne(testAsset.getId());
@@ -219,6 +357,11 @@ public class AssetResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].recordtype").value(hasItem(DEFAULT_RECORDTYPE.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }

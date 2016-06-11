@@ -1,21 +1,16 @@
 {
     "relationships": [
         {
-            "relationshipName": "location",
-            "otherEntityName": "location",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
-        },
-        {
-            "relationshipName": "score",
-            "otherEntityName": "score",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
+            "relationshipName": "asset",
+            "otherEntityName": "asset",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
-            "fieldName": "name",
+            "fieldName": "recordtype",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
@@ -24,10 +19,25 @@
             "fieldValidateRulesMaxlength": "50"
         },
         {
-            "fieldName": "recordtype",
+            "fieldName": "addressline1",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "addressline2",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "statecode",
+            "fieldType": "String",
+            "fieldValidateRules": [
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "50"
@@ -70,7 +80,7 @@
     "changelogDate": "20160510172610",
     "dto": "no",
     "service": "no",
-    "entityTableName": "asset",
+    "entityTableName": "location",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
