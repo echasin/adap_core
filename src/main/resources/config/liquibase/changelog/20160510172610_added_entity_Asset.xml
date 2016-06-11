@@ -48,6 +48,8 @@
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="asset" columnName="lastmodifieddatetime" columnDataType="datetime"/>
-        
+              
     </changeSet>
+    
+    
 </databaseChangeLog>
