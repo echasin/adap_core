@@ -16,16 +16,16 @@
 	<!-- Added the entity data. -->
 	
 
-	<changeSet id="load_adap_0" author="jhipster">
 	
-		<loadData encoding="UTF-8" file="config/liquibase/adap_core_assets_0.csv"
-			separator="," tableName="asset" />
-
-		<loadData encoding="UTF-8"
-			file="config/liquibase/adap_core_locations_0.csv" separator=","
-			tableName="location" />
-	
+	<changeSet id="restart_id_seq" author="jhipster">
+		<sql>
+ 			Alter sequence asset_id_seq restart 100000;
+    	</sql>
+    	<sql>
+ 			Alter sequence location_id_seq restart 100000;
+    	</sql>
 	</changeSet>
+
 
 
 </databaseChangeLog>
