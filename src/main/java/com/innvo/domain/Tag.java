@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Strategy.
+ * A Tag.
  */
 @Entity
-@Table(name = "strategy")
+@Table(name = "tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "strategy")
-public class Strategy implements Serializable {
+@Document(indexName = "tag")
+public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,9 +34,21 @@ public class Strategy implements Serializable {
     private String name;
 
     @NotNull
-    @Size(max = 255)
-    @Column(name = "description", length = 255, nullable = false)
-    private String description;
+    @Size(max = 100)
+    @Column(name = "recordtype", length = 100, nullable = false)
+    private String recordtype;
+
+    @Size(max = 100)
+    @Column(name = "category", length = 100)
+    private String category;
+
+    @Size(max = 100)
+    @Column(name = "subcategory", length = 100)
+    private String subcategory;
+
+    @Size(max = 100)
+    @Column(name = "type", length = 100)
+    private String type;
 
     @NotNull
     @Size(max = 25)
@@ -57,20 +69,10 @@ public class Strategy implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "strategylhs")
+    @OneToMany(mappedBy = "tagrhs")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Strategymbr> strategymbrlhs = new HashSet<>();
-
-    @OneToMany(mappedBy = "strategyrhs")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Strategymbr> strategymbrhs = new HashSet<>();
-
-    @OneToMany(mappedBy = "strategytagmbrlhs")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Tagmbr> tagmbrlhs = new HashSet<>();
+    private Set<Tagmbr> tagrhs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -88,12 +90,36 @@ public class Strategy implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRecordtype() {
+        return recordtype;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRecordtype(String recordtype) {
+        this.recordtype = recordtype;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStatus() {
@@ -128,28 +154,12 @@ public class Strategy implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Strategymbr> getStrategymbrlhs() {
-        return strategymbrlhs;
+    public Set<Tagmbr> getTagrhs() {
+        return tagrhs;
     }
 
-    public void setStrategymbrlhs(Set<Strategymbr> strategymbrs) {
-        this.strategymbrlhs = strategymbrs;
-    }
-
-    public Set<Strategymbr> getStrategymbrhs() {
-        return strategymbrhs;
-    }
-
-    public void setStrategymbrhs(Set<Strategymbr> strategymbrs) {
-        this.strategymbrhs = strategymbrs;
-    }
-
-    public Set<Tagmbr> getTagmbrlhs() {
-        return tagmbrlhs;
-    }
-
-    public void setTagmbrlhs(Set<Tagmbr> tagmbrs) {
-        this.tagmbrlhs = tagmbrs;
+    public void setTagrhs(Set<Tagmbr> tagmbrs) {
+        this.tagrhs = tagmbrs;
     }
 
     @Override
@@ -160,11 +170,11 @@ public class Strategy implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Strategy strategy = (Strategy) o;
-        if(strategy.id == null || id == null) {
+        Tag tag = (Tag) o;
+        if(tag.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, strategy.id);
+        return Objects.equals(id, tag.id);
     }
 
     @Override
@@ -174,10 +184,13 @@ public class Strategy implements Serializable {
 
     @Override
     public String toString() {
-        return "Strategy{" +
+        return "Tag{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", description='" + description + "'" +
+            ", recordtype='" + recordtype + "'" +
+            ", category='" + category + "'" +
+            ", subcategory='" + subcategory + "'" +
+            ", type='" + type + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

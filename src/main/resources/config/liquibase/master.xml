@@ -14,10 +14,13 @@
     <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_Strategy.xml" relativeToChangelogFile="false"/>
     
     <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_Strategymbr.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_Tag.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_Tagmbr.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20160510172610_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160510172610_added_entity_constraints_Score.xml" relativeToChangelogFile="false"/>
      <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_constraints_Strategymbr.xml" relativeToChangelogFile="false"/>
+     <include file="classpath:config/liquibase/changelog/20160509235551_added_entity_constraints_Tagmbr.xml" relativeToChangelogFile="false"/>
      <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 	
 	<!-- DATA LOADING FILES  -->
