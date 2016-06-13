@@ -1,22 +1,10 @@
 {
     "relationships": [
-        {
-            "relationshipName": "strategymbrlhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategylhs"
-        },
-		{
-            "relationshipName": "strategymbrhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategyrhs"
-        },
-		{
-            "relationshipName": "tagmbrlhs",
+	{
+            "relationshipName": "tagrhs",
             "otherEntityName": "tagmbr",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategytagmbrlhs"
+            "otherEntityRelationshipName": "tagrhs"
         }
     ],
     "fields": [
@@ -29,14 +17,38 @@
             ],
             "fieldValidateRulesMaxlength": "100"
         },
-        {
-            "fieldName": "description",
+		{
+            "fieldName": "recordtype",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "255"
+            "fieldValidateRulesMaxlength": "100"
+        },
+		{
+            "fieldName": "category",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+		{
+            "fieldName": "subcategory",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+		{
+            "fieldName": "type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "status",
@@ -76,7 +88,7 @@
     "changelogDate": "20160509235551",
     "dto": "no",
     "service": "no",
-    "entityTableName": "strategy",
+    "entityTableName": "tag",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

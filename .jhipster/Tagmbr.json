@@ -1,43 +1,25 @@
 {
     "relationships": [
         {
-            "relationshipName": "strategymbrlhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategylhs"
+            "relationshipName": "strategytagmbrlhs",
+            "otherEntityName": "strategy",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         },
-		{
-            "relationshipName": "strategymbrhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategyrhs"
-        },
-		{
-            "relationshipName": "tagmbrlhs",
-            "otherEntityName": "tagmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategytagmbrlhs"
+		 {
+            "relationshipName": "tagrhs",
+            "otherEntityName": "tag",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "100"
-        },
-        {
-            "fieldName": "description",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "255"
-        },
         {
             "fieldName": "status",
             "fieldType": "String",
@@ -76,7 +58,7 @@
     "changelogDate": "20160509235551",
     "dto": "no",
     "service": "no",
-    "entityTableName": "strategy",
+    "entityTableName": "tagmbr",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
