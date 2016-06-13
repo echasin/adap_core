@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,18 +8,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Strategy.
+ * A Strategymbr.
  */
 @Entity
-@Table(name = "strategy")
+@Table(name = "strategymbr")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "strategy")
-public class Strategy implements Serializable {
+@Document(indexName = "strategymbr")
+public class Strategymbr implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,15 +54,13 @@ public class Strategy implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "strategylhs")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Strategymbr> strategymbrlhs = new HashSet<>();
+    @ManyToOne
+    @NotNull
+    private Strategy strategylhs;
 
-    @OneToMany(mappedBy = "strategyrhs")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Strategymbr> strategymbrhs = new HashSet<>();
+    @ManyToOne
+    @NotNull
+    private Strategy strategyrhs;
 
     public Long getId() {
         return id;
@@ -123,20 +118,20 @@ public class Strategy implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Strategymbr> getStrategymbrlhs() {
-        return strategymbrlhs;
+    public Strategy getStrategylhs() {
+        return strategylhs;
     }
 
-    public void setStrategymbrlhs(Set<Strategymbr> strategymbrs) {
-        this.strategymbrlhs = strategymbrs;
+    public void setStrategylhs(Strategy strategy) {
+        this.strategylhs = strategy;
     }
 
-    public Set<Strategymbr> getStrategymbrhs() {
-        return strategymbrhs;
+    public Strategy getStrategyrhs() {
+        return strategyrhs;
     }
 
-    public void setStrategymbrhs(Set<Strategymbr> strategymbrs) {
-        this.strategymbrhs = strategymbrs;
+    public void setStrategyrhs(Strategy strategy) {
+        this.strategyrhs = strategy;
     }
 
     @Override
@@ -147,11 +142,11 @@ public class Strategy implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Strategy strategy = (Strategy) o;
-        if(strategy.id == null || id == null) {
+        Strategymbr strategymbr = (Strategymbr) o;
+        if(strategymbr.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, strategy.id);
+        return Objects.equals(id, strategymbr.id);
     }
 
     @Override
@@ -161,7 +156,7 @@ public class Strategy implements Serializable {
 
     @Override
     public String toString() {
-        return "Strategy{" +
+        return "Strategymbr{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", description='" + description + "'" +
