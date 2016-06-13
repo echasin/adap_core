@@ -1,16 +1,22 @@
 {
     "relationships": [
         {
-            "relationshipName": "strategymbrlhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategylhs"
+            "relationshipName": "strategylhs",
+            "otherEntityName": "strategy",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         },
-		{
-            "relationshipName": "strategymbrhs",
-            "otherEntityName": "strategymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "strategyrhs"
+		 {
+            "relationshipName": "strategyrhs",
+            "otherEntityName": "strategy",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -70,7 +76,7 @@
     "changelogDate": "20160509235551",
     "dto": "no",
     "service": "no",
-    "entityTableName": "strategy",
+    "entityTableName": "strategymbr",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

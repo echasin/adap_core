@@ -24,6 +24,12 @@
     	<sql>
  			Alter sequence location_id_seq restart 100000;
     	</sql>
+    		<sql>
+ 			Alter sequence strategy_id_seq restart 100000;
+    	</sql>
+    	<sql>
+ 			Alter sequence strategymbr_id_seq restart 100000;
+    	</sql>
 	</changeSet>
 
 
