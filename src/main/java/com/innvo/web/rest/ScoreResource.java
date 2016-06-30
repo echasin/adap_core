@@ -20,6 +20,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +60,8 @@ public class ScoreResource {
         if (score.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("score", "idexists", "A new score cannot already have an ID")).body(null);
         }
+        ZonedDateTime lastmodifieddate = ZonedDateTime.now(ZoneId.systemDefault());
+        score.setLastmodifieddatetime(lastmodifieddate);
         Score result = scoreRepository.save(score);
         scoreSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/scores/" + result.getId()))
