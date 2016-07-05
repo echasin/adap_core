@@ -166,7 +166,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "Location{" +
+        return "{" +
             "id=" + id +
             ", recordtype='" + recordtype + "'" +
             ", addressline1='" + addressline1 + "'" +

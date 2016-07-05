@@ -176,12 +176,21 @@ public class AssetResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Asset> getAssetLocation(@PathVariable Long id) {
+    public ResponseEntity<String> getAssetLocation(@PathVariable Long id) {
         log.debug("REST request to get Location by AssetId : {}", id);
         Asset asset = assetRepository.findOne(id);
         Set<Location> locations = assetRepository.findByAssetId(asset);
-        asset.setLocations(locations);
-        return Optional.ofNullable(asset)
+        String assetValues = "{" +
+                "id=" + asset.getId() +
+                ", name='" + asset.getName() + "'" +
+                ", recordtype='" + asset.getRecordtype()+ "'" +
+                ", status='" + asset.getStatus() + "'" +
+                ", lastmodifiedby='" + asset.getLastmodifiedby() + "'" +
+                ", lastmodifieddatetime='" + asset.getLastmodifieddatetime() + "'" +
+                ", domain='" + asset.getDomain() + "'" +
+                ",locations="+locations+""+
+                '}';
+        return Optional.ofNullable(assetValues)
                 .map(result -> new ResponseEntity<>(
                     result,
                     HttpStatus.OK))
