@@ -2,13 +2,21 @@ package com.innvo.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
+import java.time.ZonedDateTime;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Objects;
+import com.innvo.json.StringJsonUserType;
+import com.innvo.domain.Status;
 
 /**
  * A Score.
@@ -17,41 +25,69 @@ import java.util.Objects;
 @Table(name = "score")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "score")
+@TypeDefs({@TypeDef(name = "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class Score implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "recordtype", length = 50, nullable = false)
-    private String recordtype;
+    @Column(name = "value")
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private Double value;
 
-    @NotNull
+    @Size(max = 50)
+    @Column(name = "text", length = 50)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String text;
+
+    @Size(max = 100)
+    @Column(name = "rulefilename", length = 100)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String rulefilename;
+    
+    @Size(max = 100)
+    @Column(name = "rulename", length = 100)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String rulename;
+
+    @Column(name = "runid")
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String runid;
+    
+    @Column(name = "rundate", nullable = false)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private ZonedDateTime rundate;
+
+
     @Size(max = 25)
-    @Column(name = "status", length = 25, nullable = false)
-    private String status;
+    @Column(name = "ruleversion", length = 25)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private String ruleversion;
+
+    @Column(name = "details")
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    @Type(type = "StringJsonObject")
+    private String details;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "lastmodifiedby", length = 50, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private Status status;
+
+    @Column(name = "lastmodifiedby")
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private String lastmodifiedby;
 
-    @NotNull
-    @Column(name = "lastmodifieddatetime", nullable = false)
-    private ZonedDateTime lastmodifieddatetime;
+    @Column(name = "lastmodifieddate", nullable = false)
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    private ZonedDateTime lastmodifieddate;
 
-    @NotNull
-    @Size(max = 25)
-    @Column(name = "domain", length = 25, nullable = false)
+    @Column(name = "domain")
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private String domain;
 
-    @NotNull
-    @Column(name = "value", nullable = false)
-    private Long value;
 
     @ManyToOne
     private Asset asset;
@@ -64,19 +100,51 @@ public class Score implements Serializable {
         this.id = id;
     }
 
-    public String getRecordtype() {
-        return recordtype;
+    public Double getValue() {
+        return value;
     }
 
-    public void setRecordtype(String recordtype) {
-        this.recordtype = recordtype;
+    public void setValue(Double value) {
+        this.value = value;
     }
 
-    public String getStatus() {
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getRulename() {
+        return rulename;
+    }
+
+    public void setRulename(String rulename) {
+        this.rulename = rulename;
+    }
+
+    public String getRuleversion() {
+        return ruleversion;
+    }
+
+    public void setRuleversion(String ruleversion) {
+        this.ruleversion = ruleversion;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -88,12 +156,12 @@ public class Score implements Serializable {
         this.lastmodifiedby = lastmodifiedby;
     }
 
-    public ZonedDateTime getLastmodifieddatetime() {
-        return lastmodifieddatetime;
+    public ZonedDateTime getLastmodifieddate() {
+        return lastmodifieddate;
     }
 
-    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
-        this.lastmodifieddatetime = lastmodifieddatetime;
+    public void setLastmodifieddate(ZonedDateTime lastmodifieddate) {
+        this.lastmodifieddate = lastmodifieddate;
     }
 
     public String getDomain() {
@@ -104,13 +172,6 @@ public class Score implements Serializable {
         this.domain = domain;
     }
 
-    public Long getValue() {
-        return value;
-    }
-
-    public void setValue(Long value) {
-        this.value = value;
-    }
 
     public Asset getAsset() {
         return asset;
@@ -128,11 +189,12 @@ public class Score implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Score score = (Score) o;
-        if(score.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, score.id);
+
+        if ( ! Objects.equals(id, score.id)) return false;
+
+        return true;
     }
 
     @Override
@@ -144,12 +206,58 @@ public class Score implements Serializable {
     public String toString() {
         return "Score{" +
             "id=" + id +
-            ", recordtype='" + recordtype + "'" +
+            ", value='" + value + "'" +
+            ", text='" + text + "'" +
+            ", rulename='" + rulename + "'" +
+            ", ruleversion='" + ruleversion + "'" +
+            ", details='" + details + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
-            ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
+            ", lastmodifieddate='" + lastmodifieddate + "'" +
             ", domain='" + domain + "'" +
-            ", value='" + value + "'" +
             '}';
+    }
+
+    /**
+     * @param runid the runid to set
+     */
+    public void setRunid(String runid) {
+        this.runid = runid;
+    }
+
+    /**
+     * @param rundate the rundate to set
+     */
+    public void setRundate(ZonedDateTime rundate) {
+        this.rundate = rundate;
+    }
+
+    /**
+     * @return the runid
+     */
+    public String getRunid() {
+        return runid;
+    }
+
+    /**
+     * @return the rundate
+     */
+    public ZonedDateTime getRundate() {
+        return rundate;
+    }
+
+
+    /**
+     * @return the rulefilename
+     */
+    public String getRulefilename() {
+        return rulefilename;
+    }
+
+    /**
+     * @param rulefilename the rulefilename to set
+     */
+    public void setRulefilename(String rulefilename) {
+        this.rulefilename = rulefilename;
     }
 }

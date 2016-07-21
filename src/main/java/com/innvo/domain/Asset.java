@@ -57,8 +57,8 @@ public class Asset implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "asset",fetch=FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "asset")
+    //@JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Location> locations = new HashSet<>();
 
@@ -169,7 +169,6 @@ public class Asset implements Serializable {
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
-            ",location=["+locations+"]"+
             '}';
     }
 }
