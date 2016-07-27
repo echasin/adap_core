@@ -171,7 +171,7 @@ public class AssetResource {
      * @param id the id of the location to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the location, or with status 404 (Not Found)
      */
-   @RequestMapping(value = "/assetlocations/{id}",
+   @RequestMapping(value = "/assetobject/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
