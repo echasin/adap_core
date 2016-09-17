@@ -58,7 +58,7 @@ public class Asset implements Serializable {
     private String domain;
 
     @OneToMany(mappedBy = "asset")
-    //@JsonIgnore
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Location> locations = new HashSet<>();
 
@@ -66,6 +66,20 @@ public class Asset implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Score> scores = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "asset_category",
+               joinColumns = @JoinColumn(name="assets_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
+    private Set<Category> categories = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "asset_subcategory",
+               joinColumns = @JoinColumn(name="assets_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
+    private Set<Subcategory> subcategories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -137,6 +151,22 @@ public class Asset implements Serializable {
 
     public void setScores(Set<Score> scores) {
         this.scores = scores;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(Set<Subcategory> subcategories) {
+        this.subcategories = subcategories;
     }
 
     @Override

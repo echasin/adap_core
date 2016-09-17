@@ -11,6 +11,20 @@
             "otherEntityName": "score",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "asset"
+        },
+        {
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "subcategory",
+            "otherEntityName": "subcategory",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         }
     ],
     "fields": [

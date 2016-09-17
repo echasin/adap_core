@@ -49,10 +49,27 @@
         </createTable>
         <dropDefaultValue tableName="asset" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
+        <createTable tableName="asset_category">
+            <column name="categories_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assets_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
-    
-    
+        <addPrimaryKey columnNames="assets_id, categories_id" tableName="asset_category"/>
+        
+        <createTable tableName="asset_subcategory">
+            <column name="subcategories_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assets_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="assets_id, subcategories_id" tableName="asset_subcategory"/>
+        
     </changeSet>
-    
-    
 </databaseChangeLog>
