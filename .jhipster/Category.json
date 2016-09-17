@@ -1,30 +1,26 @@
 {
     "relationships": [
         {
-            "relationshipName": "location",
-            "otherEntityName": "location",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
-        },
-        {
-            "relationshipName": "score",
-            "otherEntityName": "score",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
-        },
-        {
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         },
         {
             "relationshipName": "subcategory",
             "otherEntityName": "subcategory",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipName": "asset",
+            "otherEntityName": "asset",
             "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
         }
     ],
     "fields": [
@@ -38,13 +34,12 @@
             "fieldValidateRulesMaxlength": "50"
         },
         {
-            "fieldName": "recordtype",
+            "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "255"
         },
         {
             "fieldName": "status",
@@ -81,10 +76,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20160510172610",
+    "changelogDate": "20160916210942",
     "dto": "no",
     "service": "no",
-    "entityTableName": "asset",
+    "entityTableName": "category",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

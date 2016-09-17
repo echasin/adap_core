@@ -1,34 +1,22 @@
 {
     "relationships": [
         {
-            "relationshipName": "location",
-            "otherEntityName": "location",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
-        },
-        {
-            "relationshipName": "score",
-            "otherEntityName": "score",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "asset"
-        },
-        {
             "relationshipName": "category",
             "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
-            "relationshipName": "subcategory",
-            "otherEntityName": "subcategory",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
         }
     ],
     "fields": [
         {
+            "fieldName": "objecttype",
+            "fieldType": "Objecttype",
+            "fieldValues": "Asset,Organization,Person,Location",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+		{
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -37,14 +25,13 @@
             ],
             "fieldValidateRulesMaxlength": "50"
         },
-        {
-            "fieldName": "recordtype",
+		{
+            "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "255"
         },
         {
             "fieldName": "status",
@@ -80,11 +67,12 @@
             ],
             "fieldValidateRulesMaxlength": "25"
         }
+        
     ],
-    "changelogDate": "20160510172610",
+    "changelogDate": "20160916210613",
     "dto": "no",
     "service": "no",
-    "entityTableName": "asset",
+    "entityTableName": "recordtype",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

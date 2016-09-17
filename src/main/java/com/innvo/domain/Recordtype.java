@@ -13,14 +13,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import com.innvo.domain.enumeration.Objecttype;
+
 /**
- * A Asset.
+ * A Recordtype.
  */
 @Entity
-@Table(name = "asset")
+@Table(name = "recordtype")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "asset")
-public class Asset implements Serializable {
+@Document(indexName = "recordtype")
+public class Recordtype implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,14 +31,18 @@ public class Asset implements Serializable {
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "objecttype", nullable = false)
+    private Objecttype objecttype;
+
+    @NotNull
     @Size(max = 50)
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "recordtype", length = 50, nullable = false)
-    private String recordtype;
+    @Size(max = 255)
+    @Column(name = "description", length = 255)
+    private String description;
 
     @NotNull
     @Size(max = 25)
@@ -57,29 +63,10 @@ public class Asset implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "asset")
+    @OneToMany(mappedBy = "recordtype")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Location> locations = new HashSet<>();
-
-    @OneToMany(mappedBy = "asset")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Score> scores = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "asset_category",
-               joinColumns = @JoinColumn(name="assets_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
     private Set<Category> categories = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "asset_subcategory",
-               joinColumns = @JoinColumn(name="assets_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
-    private Set<Subcategory> subcategories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -87,6 +74,14 @@ public class Asset implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Objecttype getObjecttype() {
+        return objecttype;
+    }
+
+    public void setObjecttype(Objecttype objecttype) {
+        this.objecttype = objecttype;
     }
 
     public String getName() {
@@ -97,12 +92,12 @@ public class Asset implements Serializable {
         this.name = name;
     }
 
-    public String getRecordtype() {
-        return recordtype;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRecordtype(String recordtype) {
-        this.recordtype = recordtype;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStatus() {
@@ -137,36 +132,12 @@ public class Asset implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
-    }
-
-    public Set<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
-    }
-
     public Set<Category> getCategories() {
         return categories;
     }
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
-    }
-
-    public Set<Subcategory> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(Set<Subcategory> subcategories) {
-        this.subcategories = subcategories;
     }
 
     @Override
@@ -177,11 +148,11 @@ public class Asset implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Asset asset = (Asset) o;
-        if(asset.id == null || id == null) {
+        Recordtype recordtype = (Recordtype) o;
+        if(recordtype.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, asset.id);
+        return Objects.equals(id, recordtype.id);
     }
 
     @Override
@@ -191,10 +162,11 @@ public class Asset implements Serializable {
 
     @Override
     public String toString() {
-        return "Asset{" +
+        return "Recordtype{" +
             "id=" + id +
+            ", objecttype='" + objecttype + "'" +
             ", name='" + name + "'" +
-            ", recordtype='" + recordtype + "'" +
+            ", description='" + description + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
