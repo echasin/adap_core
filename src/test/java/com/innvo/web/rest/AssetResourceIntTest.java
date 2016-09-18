@@ -50,8 +50,6 @@ public class AssetResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
-    private static final String DEFAULT_RECORDTYPE = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_RECORDTYPE = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -95,7 +93,6 @@ public class AssetResourceIntTest {
         assetSearchRepository.deleteAll();
         asset = new Asset();
         asset.setName(DEFAULT_NAME);
-        asset.setRecordtype(DEFAULT_RECORDTYPE);
         asset.setStatus(DEFAULT_STATUS);
         asset.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
         asset.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
@@ -119,7 +116,6 @@ public class AssetResourceIntTest {
         assertThat(assets).hasSize(databaseSizeBeforeCreate + 1);
         Asset testAsset = assets.get(assets.size() - 1);
         assertThat(testAsset.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testAsset.getRecordtype()).isEqualTo(DEFAULT_RECORDTYPE);
         assertThat(testAsset.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testAsset.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
         assertThat(testAsset.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
@@ -136,24 +132,6 @@ public class AssetResourceIntTest {
         int databaseSizeBeforeTest = assetRepository.findAll().size();
         // set the field null
         asset.setName(null);
-
-        // Create the Asset, which fails.
-
-        restAssetMockMvc.perform(post("/api/assets")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(asset)))
-                .andExpect(status().isBadRequest());
-
-        List<Asset> assets = assetRepository.findAll();
-        assertThat(assets).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkRecordtypeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = assetRepository.findAll().size();
-        // set the field null
-        asset.setRecordtype(null);
 
         // Create the Asset, which fails.
 
@@ -250,7 +228,6 @@ public class AssetResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].recordtype").value(hasItem(DEFAULT_RECORDTYPE.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
@@ -269,7 +246,6 @@ public class AssetResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(asset.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.recordtype").value(DEFAULT_RECORDTYPE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
             .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
@@ -296,7 +272,6 @@ public class AssetResourceIntTest {
         Asset updatedAsset = new Asset();
         updatedAsset.setId(asset.getId());
         updatedAsset.setName(UPDATED_NAME);
-        updatedAsset.setRecordtype(UPDATED_RECORDTYPE);
         updatedAsset.setStatus(UPDATED_STATUS);
         updatedAsset.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
         updatedAsset.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
@@ -312,7 +287,6 @@ public class AssetResourceIntTest {
         assertThat(assets).hasSize(databaseSizeBeforeUpdate);
         Asset testAsset = assets.get(assets.size() - 1);
         assertThat(testAsset.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testAsset.getRecordtype()).isEqualTo(UPDATED_RECORDTYPE);
         assertThat(testAsset.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testAsset.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
         assertThat(testAsset.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
@@ -358,7 +332,6 @@ public class AssetResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(asset.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].recordtype").value(hasItem(DEFAULT_RECORDTYPE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
             .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))

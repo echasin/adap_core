@@ -38,15 +38,6 @@
             "fieldValidateRulesMaxlength": "50"
         },
         {
-            "fieldName": "recordtype",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "50"
-        },
-        {
             "fieldName": "status",
             "fieldType": "String",
             "fieldValidateRules": [
