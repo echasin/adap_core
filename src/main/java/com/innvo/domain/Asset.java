@@ -76,6 +76,9 @@ public class Asset implements Serializable {
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
+    @ManyToOne
+    private Recordtype recordtype;
+
     public Long getId() {
         return id;
     }
@@ -154,6 +157,14 @@ public class Asset implements Serializable {
 
     public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public Recordtype getRecordtype() {
+        return recordtype;
+    }
+
+    public void setRecordtype(Recordtype recordtype) {
+        this.recordtype = recordtype;
     }
 
     @Override

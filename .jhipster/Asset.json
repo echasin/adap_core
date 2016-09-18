@@ -25,6 +25,12 @@
             "relationshipType": "many-to-many",
             "otherEntityField": "name",
             "ownerSide": true
+        },
+        {
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
