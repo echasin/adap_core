@@ -1,5 +1,5 @@
-id,name,status,lastmodifiedby,lastmodifieddatetime,domain,objecttype
-100,"Critical Infrastructure","Active","echasin","2016-09-01 00:00:00","DEMO","Asset"
-102,"Information Technology","Active","echasin","2016-09-01 00:00:00","DEMO","Asset"
-200,"Organization","Active","echasin","2016-09-01 00:00:00","DEMO","Organization"
-202,"Team","Active","echasin","2016-09-01 00:00:00","DEMO","Organization"
+id,objecttype,name,description,status,lastmodifiedby,lastmodifieddatetime,domain
+100,Asset,Critical Infrastructure,null,Active,echasin,2016-09-01 00:00:00,DEMO
+102,Asset,Information Technology,null,Active,echasin,2016-09-01 00:00:00,DEMO
+200,Organization,Organization,null,Active,echasin,2016-09-01 00:00:00,DEMO
+202,Organization,Team,null,Active,echasin,2016-09-01 00:00:00,DEMO

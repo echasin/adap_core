@@ -18,6 +18,14 @@
 
 	<changeSet id="load_adap_0" author="jhipster">
 	
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_recordtypes_0.csv" separator=","
+			tableName="recordtype" />
+		
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_categories_0.csv" separator=","
+			tableName="category" />
+		
 		<loadData encoding="UTF-8" file="config/liquibase/adap_core_assets_0.csv"
 			separator="," tableName="asset" />
 

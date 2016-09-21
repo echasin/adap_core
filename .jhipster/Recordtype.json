@@ -5,6 +5,12 @@
             "otherEntityName": "category",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "recordtype"
+        },
+        {
+            "relationshipName": "asset",
+            "otherEntityName": "asset",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
         }
     ],
     "fields": [
@@ -16,7 +22,7 @@
                 "required"
             ]
         },
-		{
+        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -25,7 +31,7 @@
             ],
             "fieldValidateRulesMaxlength": "50"
         },
-		{
+        {
             "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -67,7 +73,6 @@
             ],
             "fieldValidateRulesMaxlength": "25"
         }
-        
     ],
     "changelogDate": "20160916210613",
     "dto": "no",

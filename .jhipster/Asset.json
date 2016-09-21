@@ -25,20 +25,17 @@
             "relationshipType": "many-to-many",
             "otherEntityField": "name",
             "ownerSide": true
+        },
+        {
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
             "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "50"
-        },
-        {
-            "fieldName": "recordtype",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",

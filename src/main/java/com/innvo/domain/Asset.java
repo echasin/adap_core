@@ -34,11 +34,6 @@ public class Asset implements Serializable {
     private String name;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "recordtype", length = 50, nullable = false)
-    private String recordtype;
-
-    @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
     private String status;
@@ -81,6 +76,9 @@ public class Asset implements Serializable {
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
+    @ManyToOne
+    private Recordtype recordtype;
+
     public Long getId() {
         return id;
     }
@@ -95,14 +93,6 @@ public class Asset implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRecordtype() {
-        return recordtype;
-    }
-
-    public void setRecordtype(String recordtype) {
-        this.recordtype = recordtype;
     }
 
     public String getStatus() {
@@ -169,6 +159,14 @@ public class Asset implements Serializable {
         this.subcategories = subcategories;
     }
 
+    public Recordtype getRecordtype() {
+        return recordtype;
+    }
+
+    public void setRecordtype(Recordtype recordtype) {
+        this.recordtype = recordtype;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -194,7 +192,6 @@ public class Asset implements Serializable {
         return "Asset{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", recordtype='" + recordtype + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

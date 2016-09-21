@@ -30,5 +30,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="subcategory"/>
         
+        <addForeignKeyConstraint baseColumnNames="recordtype_id"
+                                 baseTableName="asset"
+                                 constraintName="fk_asset_recordtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recordtype"/>
+
     </changeSet>
 </databaseChangeLog>
