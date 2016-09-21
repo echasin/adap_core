@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Assetassetmbr.
+    -->
+    <changeSet id="20160921012226-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="assetparent_id"
+                                 baseTableName="assetassetmbr"
+                                 constraintName="fk_assetassetmbr_assetparent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset"/>
+
+        <addForeignKeyConstraint baseColumnNames="assetchild_id"
+                                 baseTableName="assetassetmbr"
+                                 constraintName="fk_assetassetmbr_assetchild_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="asset"/>
+
+    </changeSet>
+</databaseChangeLog>
