@@ -31,6 +31,18 @@
             "otherEntityName": "recordtype",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "assetparent",
+            "otherEntityName": "assetassetmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "assetparent"
+        },
+        {
+            "relationshipName": "assetassetmbrchild",
+            "otherEntityName": "assetassetmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "assetchild"
         }
     ],
     "fields": [
