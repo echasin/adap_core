@@ -79,6 +79,16 @@ public class Asset implements Serializable {
     @ManyToOne
     private Recordtype recordtype;
 
+    @OneToMany(mappedBy = "assetparent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Assetassetmbr> assetparents = new HashSet<>();
+
+    @OneToMany(mappedBy = "assetchild")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Assetassetmbr> assetassetmbrchildren = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -165,6 +175,22 @@ public class Asset implements Serializable {
 
     public void setRecordtype(Recordtype recordtype) {
         this.recordtype = recordtype;
+    }
+
+    public Set<Assetassetmbr> getAssetparents() {
+        return assetparents;
+    }
+
+    public void setAssetparents(Set<Assetassetmbr> assetassetmbrs) {
+        this.assetparents = assetassetmbrs;
+    }
+
+    public Set<Assetassetmbr> getAssetassetmbrchildren() {
+        return assetassetmbrchildren;
+    }
+
+    public void setAssetassetmbrchildren(Set<Assetassetmbr> assetassetmbrs) {
+        this.assetassetmbrchildren = assetassetmbrs;
     }
 
     @Override
