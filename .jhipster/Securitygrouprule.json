@@ -1,0 +1,59 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "securitygroup",
+            "otherEntityName": "securitygroup",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ruletype",
+            "fieldType": "Ruletype",
+            "fieldValues": "Inbound,Outbound",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "protocol",
+            "fieldType": "Protocol",
+            "fieldValues": "TCP,SSH,UDP",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+		{
+            "fieldName": "iprange",
+            "fieldType": "String",
+            "fieldValidateRules": [
+      
+            ]
+        },
+     	{
+            "fieldName": "fromport",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+      
+            ]
+        },
+		{
+            "fieldName": "toport",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+      
+            ]
+        }
+    ],
+    "changelogDate": "20160922012927",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "securitygrouprule",
+    "pagination": "pagination",
+    "microserviceName": "adap_core",
+    "searchEngine": "elasticsearch"
+}

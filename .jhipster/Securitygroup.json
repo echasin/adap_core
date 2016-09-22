@@ -1,0 +1,53 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "securitygrouprule",
+            "otherEntityName": "securitygrouprule",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "securitygroup"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+		{
+            "fieldName": "groupid",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+		{
+            "fieldName": "vpcid",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        }
+    ],
+    "changelogDate": "20160922012201",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "securitygroup",
+    "pagination": "pagination",
+    "microserviceName": "adap_core",
+    "searchEngine": "elasticsearch"
+}
