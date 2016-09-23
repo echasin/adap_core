@@ -32,7 +32,15 @@
 		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_locations_0.csv" separator=","
 			tableName="location" />
-	
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_securitygroups_0.csv" separator=","
+			tableName="securitygroup" />
+		
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_securitygrouprules_0.csv" separator=","
+			tableName="securitygrouprule" />	
+			
 	</changeSet>
 
 

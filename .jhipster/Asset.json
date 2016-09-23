@@ -43,6 +43,12 @@
             "otherEntityName": "assetassetmbr",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "assetchild"
+        },
+        {
+            "relationshipName": "securitygroup",
+            "otherEntityName": "securitygroup",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [

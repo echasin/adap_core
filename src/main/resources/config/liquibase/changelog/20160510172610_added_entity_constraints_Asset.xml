@@ -36,5 +36,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="recordtype"/>
 
+        <addForeignKeyConstraint baseColumnNames="securitygroup_id"
+                                 baseTableName="asset"
+                                 constraintName="fk_asset_securitygroup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="securitygroup"/>
+
     </changeSet>
 </databaseChangeLog>
