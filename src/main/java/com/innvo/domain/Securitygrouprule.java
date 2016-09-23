@@ -7,7 +7,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
+
+import com.innvo.domain.enumeration.Ruledirectiontype;
 
 import com.innvo.domain.enumeration.Ruletype;
 
@@ -30,6 +33,11 @@ public class Securitygrouprule implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "ruledirectiontype", nullable = false)
+    private Ruledirectiontype ruledirectiontype;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "ruletype", nullable = false)
     private Ruletype ruletype;
 
@@ -47,6 +55,25 @@ public class Securitygrouprule implements Serializable {
     @Column(name = "toport")
     private Integer toport;
 
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "status", length = 25, nullable = false)
+    private String status;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "lastmodifiedby", length = 50, nullable = false)
+    private String lastmodifiedby;
+
+    @NotNull
+    @Column(name = "lastmodifieddatetime", nullable = false)
+    private ZonedDateTime lastmodifieddatetime;
+
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "domain", length = 25, nullable = false)
+    private String domain;
+
     @ManyToOne
     @NotNull
     private Securitygroup securitygroup;
@@ -57,6 +84,14 @@ public class Securitygrouprule implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Ruledirectiontype getRuledirectiontype() {
+        return ruledirectiontype;
+    }
+
+    public void setRuledirectiontype(Ruledirectiontype ruledirectiontype) {
+        this.ruledirectiontype = ruledirectiontype;
     }
 
     public Ruletype getRuletype() {
@@ -99,6 +134,38 @@ public class Securitygrouprule implements Serializable {
         this.toport = toport;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLastmodifiedby() {
+        return lastmodifiedby;
+    }
+
+    public void setLastmodifiedby(String lastmodifiedby) {
+        this.lastmodifiedby = lastmodifiedby;
+    }
+
+    public ZonedDateTime getLastmodifieddatetime() {
+        return lastmodifieddatetime;
+    }
+
+    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+        this.lastmodifieddatetime = lastmodifieddatetime;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     public Securitygroup getSecuritygroup() {
         return securitygroup;
     }
@@ -131,11 +198,16 @@ public class Securitygrouprule implements Serializable {
     public String toString() {
         return "Securitygrouprule{" +
             "id=" + id +
+            ", ruledirectiontype='" + ruledirectiontype + "'" +
             ", ruletype='" + ruletype + "'" +
             ", protocol='" + protocol + "'" +
             ", iprange='" + iprange + "'" +
             ", fromport='" + fromport + "'" +
             ", toport='" + toport + "'" +
+            ", status='" + status + "'" +
+            ", lastmodifiedby='" + lastmodifiedby + "'" +
+            ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
+            ", domain='" + domain + "'" +
             '}';
     }
 }

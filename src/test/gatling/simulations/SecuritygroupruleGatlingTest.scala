@@ -68,7 +68,7 @@ class SecuritygroupruleGatlingTest extends Simulation {
             .exec(http("Create new securitygrouprule")
             .post("/api/securitygrouprules")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "ruletype":null, "protocol":null, "iprange":"SAMPLE_TEXT", "fromport":"0", "toport":"0"}""")).asJSON
+            .body(StringBody("""{"id":null, "ruledirectiontype":null, "ruletype":null, "protocol":null, "iprange":"SAMPLE_TEXT", "fromport":"0", "toport":"0", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_securitygrouprule_url"))).exitHereIfFailed
             .pause(10)

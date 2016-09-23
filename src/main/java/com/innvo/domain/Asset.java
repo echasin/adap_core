@@ -89,6 +89,9 @@ public class Asset implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Assetassetmbr> assetassetmbrchildren = new HashSet<>();
 
+    @ManyToOne
+    private Securitygroup securitygroup;
+
     public Long getId() {
         return id;
     }
@@ -191,6 +194,14 @@ public class Asset implements Serializable {
 
     public void setAssetassetmbrchildren(Set<Assetassetmbr> assetassetmbrs) {
         this.assetassetmbrchildren = assetassetmbrs;
+    }
+
+    public Securitygroup getSecuritygroup() {
+        return securitygroup;
+    }
+
+    public void setSecuritygroup(Securitygroup securitygroup) {
+        this.securitygroup = securitygroup;
     }
 
     @Override

@@ -5,6 +5,12 @@
             "otherEntityName": "securitygrouprule",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "securitygroup"
+        },
+        {
+            "relationshipName": "asset",
+            "otherEntityName": "asset",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "securitygroup"
         }
     ],
     "fields": [
@@ -26,7 +32,7 @@
             ],
             "fieldValidateRulesMaxlength": "255"
         },
-		{
+        {
             "fieldName": "groupid",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -34,10 +40,44 @@
             ],
             "fieldValidateRulesMaxlength": "25"
         },
-		{
+        {
             "fieldName": "vpcid",
             "fieldType": "String",
             "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "lastmodifiedby",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "lastmodifieddatetime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "domain",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"

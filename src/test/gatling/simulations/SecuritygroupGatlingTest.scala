@@ -68,7 +68,7 @@ class SecuritygroupGatlingTest extends Simulation {
             .exec(http("Create new securitygroup")
             .post("/api/securitygroups")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "groupid":"SAMPLE_TEXT", "vpcid":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "groupid":"SAMPLE_TEXT", "vpcid":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_securitygroup_url"))).exitHereIfFailed
             .pause(10)

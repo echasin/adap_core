@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -45,10 +46,34 @@ public class Securitygroup implements Serializable {
     @Column(name = "vpcid", length = 25)
     private String vpcid;
 
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "status", length = 25, nullable = false)
+    private String status;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "lastmodifiedby", length = 50, nullable = false)
+    private String lastmodifiedby;
+
+    @NotNull
+    @Column(name = "lastmodifieddatetime", nullable = false)
+    private ZonedDateTime lastmodifieddatetime;
+
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "domain", length = 25, nullable = false)
+    private String domain;
+
     @OneToMany(mappedBy = "securitygroup")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Securitygrouprule> securitygrouprules = new HashSet<>();
+
+    @OneToMany(mappedBy = "securitygroup")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Asset> assets = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -90,12 +115,52 @@ public class Securitygroup implements Serializable {
         this.vpcid = vpcid;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLastmodifiedby() {
+        return lastmodifiedby;
+    }
+
+    public void setLastmodifiedby(String lastmodifiedby) {
+        this.lastmodifiedby = lastmodifiedby;
+    }
+
+    public ZonedDateTime getLastmodifieddatetime() {
+        return lastmodifieddatetime;
+    }
+
+    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+        this.lastmodifieddatetime = lastmodifieddatetime;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     public Set<Securitygrouprule> getSecuritygrouprules() {
         return securitygrouprules;
     }
 
     public void setSecuritygrouprules(Set<Securitygrouprule> securitygrouprules) {
         this.securitygrouprules = securitygrouprules;
+    }
+
+    public Set<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(Set<Asset> assets) {
+        this.assets = assets;
     }
 
     @Override
@@ -126,6 +191,10 @@ public class Securitygroup implements Serializable {
             ", description='" + description + "'" +
             ", groupid='" + groupid + "'" +
             ", vpcid='" + vpcid + "'" +
+            ", status='" + status + "'" +
+            ", lastmodifiedby='" + lastmodifiedby + "'" +
+            ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
+            ", domain='" + domain + "'" +
             '}';
     }
 }

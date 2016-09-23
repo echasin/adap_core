@@ -24,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +46,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class SecuritygroupResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -50,6 +56,16 @@ public class SecuritygroupResourceIntTest {
     private static final String UPDATED_GROUPID = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_VPCID = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_VPCID = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_LASTMODIFIEDBY = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_LASTMODIFIEDDATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_LASTMODIFIEDDATETIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
+    private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private SecuritygroupRepository securitygroupRepository;
@@ -86,6 +102,10 @@ public class SecuritygroupResourceIntTest {
         securitygroup.setDescription(DEFAULT_DESCRIPTION);
         securitygroup.setGroupid(DEFAULT_GROUPID);
         securitygroup.setVpcid(DEFAULT_VPCID);
+        securitygroup.setStatus(DEFAULT_STATUS);
+        securitygroup.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
+        securitygroup.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
+        securitygroup.setDomain(DEFAULT_DOMAIN);
     }
 
     @Test
@@ -108,6 +128,10 @@ public class SecuritygroupResourceIntTest {
         assertThat(testSecuritygroup.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testSecuritygroup.getGroupid()).isEqualTo(DEFAULT_GROUPID);
         assertThat(testSecuritygroup.getVpcid()).isEqualTo(DEFAULT_VPCID);
+        assertThat(testSecuritygroup.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testSecuritygroup.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
+        assertThat(testSecuritygroup.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
+        assertThat(testSecuritygroup.getDomain()).isEqualTo(DEFAULT_DOMAIN);
 
         // Validate the Securitygroup in ElasticSearch
         Securitygroup securitygroupEs = securitygroupSearchRepository.findOne(testSecuritygroup.getId());
@@ -152,6 +176,78 @@ public class SecuritygroupResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = securitygroupRepository.findAll().size();
+        // set the field null
+        securitygroup.setStatus(null);
+
+        // Create the Securitygroup, which fails.
+
+        restSecuritygroupMockMvc.perform(post("/api/securitygroups")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(securitygroup)))
+                .andExpect(status().isBadRequest());
+
+        List<Securitygroup> securitygroups = securitygroupRepository.findAll();
+        assertThat(securitygroups).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifiedbyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = securitygroupRepository.findAll().size();
+        // set the field null
+        securitygroup.setLastmodifiedby(null);
+
+        // Create the Securitygroup, which fails.
+
+        restSecuritygroupMockMvc.perform(post("/api/securitygroups")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(securitygroup)))
+                .andExpect(status().isBadRequest());
+
+        List<Securitygroup> securitygroups = securitygroupRepository.findAll();
+        assertThat(securitygroups).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifieddatetimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = securitygroupRepository.findAll().size();
+        // set the field null
+        securitygroup.setLastmodifieddatetime(null);
+
+        // Create the Securitygroup, which fails.
+
+        restSecuritygroupMockMvc.perform(post("/api/securitygroups")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(securitygroup)))
+                .andExpect(status().isBadRequest());
+
+        List<Securitygroup> securitygroups = securitygroupRepository.findAll();
+        assertThat(securitygroups).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDomainIsRequired() throws Exception {
+        int databaseSizeBeforeTest = securitygroupRepository.findAll().size();
+        // set the field null
+        securitygroup.setDomain(null);
+
+        // Create the Securitygroup, which fails.
+
+        restSecuritygroupMockMvc.perform(post("/api/securitygroups")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(securitygroup)))
+                .andExpect(status().isBadRequest());
+
+        List<Securitygroup> securitygroups = securitygroupRepository.findAll();
+        assertThat(securitygroups).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllSecuritygroups() throws Exception {
         // Initialize the database
         securitygroupRepository.saveAndFlush(securitygroup);
@@ -164,7 +260,11 @@ public class SecuritygroupResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].groupid").value(hasItem(DEFAULT_GROUPID.toString())))
-                .andExpect(jsonPath("$.[*].vpcid").value(hasItem(DEFAULT_VPCID.toString())));
+                .andExpect(jsonPath("$.[*].vpcid").value(hasItem(DEFAULT_VPCID.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -181,7 +281,11 @@ public class SecuritygroupResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.groupid").value(DEFAULT_GROUPID.toString()))
-            .andExpect(jsonPath("$.vpcid").value(DEFAULT_VPCID.toString()));
+            .andExpect(jsonPath("$.vpcid").value(DEFAULT_VPCID.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
+            .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
     @Test
@@ -207,6 +311,10 @@ public class SecuritygroupResourceIntTest {
         updatedSecuritygroup.setDescription(UPDATED_DESCRIPTION);
         updatedSecuritygroup.setGroupid(UPDATED_GROUPID);
         updatedSecuritygroup.setVpcid(UPDATED_VPCID);
+        updatedSecuritygroup.setStatus(UPDATED_STATUS);
+        updatedSecuritygroup.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
+        updatedSecuritygroup.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
+        updatedSecuritygroup.setDomain(UPDATED_DOMAIN);
 
         restSecuritygroupMockMvc.perform(put("/api/securitygroups")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -221,6 +329,10 @@ public class SecuritygroupResourceIntTest {
         assertThat(testSecuritygroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testSecuritygroup.getGroupid()).isEqualTo(UPDATED_GROUPID);
         assertThat(testSecuritygroup.getVpcid()).isEqualTo(UPDATED_VPCID);
+        assertThat(testSecuritygroup.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testSecuritygroup.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
+        assertThat(testSecuritygroup.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
+        assertThat(testSecuritygroup.getDomain()).isEqualTo(UPDATED_DOMAIN);
 
         // Validate the Securitygroup in ElasticSearch
         Securitygroup securitygroupEs = securitygroupSearchRepository.findOne(testSecuritygroup.getId());
@@ -264,6 +376,10 @@ public class SecuritygroupResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].groupid").value(hasItem(DEFAULT_GROUPID.toString())))
-            .andExpect(jsonPath("$.[*].vpcid").value(hasItem(DEFAULT_VPCID.toString())));
+            .andExpect(jsonPath("$.[*].vpcid").value(hasItem(DEFAULT_VPCID.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }
