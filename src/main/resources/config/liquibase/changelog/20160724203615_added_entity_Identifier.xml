@@ -21,10 +21,6 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="type" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
-            
             <column name="value" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -47,6 +43,10 @@
             
             <column name="asset_id" type="bigint">
                 <constraints nullable="true" />
+            </column>
+
+            <column name="key_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->

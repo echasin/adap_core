@@ -1,22 +1,22 @@
 {
     "relationships": [
-		{
+        {
             "relationshipName": "asset",
             "otherEntityName": "asset",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "key",
+            "otherEntityName": "key",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
-        {
-            "fieldName": "type",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "50"
-        },
         {
             "fieldName": "value",
             "fieldType": "String",
@@ -26,7 +26,7 @@
             ],
             "fieldValidateRulesMaxlength": "255"
         },
-		{
+        {
             "fieldName": "status",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -49,7 +49,6 @@
             "fieldType": "ZonedDateTime",
             "fieldValidateRules": [
                 "required"
-
             ]
         },
         {

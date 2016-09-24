@@ -25,6 +25,10 @@
 		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_categories_0.csv" separator=","
 			tableName="category" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_keys_0.csv" separator=","
+			tableName="key" />	
 		
 		<loadData encoding="UTF-8" file="config/liquibase/adap_core_assets_0.csv"
 			separator="," tableName="asset" />
@@ -40,7 +44,11 @@
 		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_securitygrouprules_0.csv" separator=","
 			tableName="securitygrouprule" />	
-			
+		
+		
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_identifiers_0.csv" separator=","
+			tableName="identifier" />
 	</changeSet>
 
 

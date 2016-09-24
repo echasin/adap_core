@@ -26,11 +26,6 @@ public class Identifier implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "type", length = 50, nullable = false)
-    private String type;
-
-    @NotNull
     @Size(max = 255)
     @Column(name = "value", length = 255, nullable = false)
     private String value;
@@ -57,20 +52,16 @@ public class Identifier implements Serializable {
     @ManyToOne
     private Asset asset;
 
+    @ManyToOne
+    @NotNull
+    private Key key;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getValue() {
@@ -121,6 +112,14 @@ public class Identifier implements Serializable {
         this.asset = asset;
     }
 
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -145,7 +144,6 @@ public class Identifier implements Serializable {
     public String toString() {
         return "Identifier{" +
             "id=" + id +
-            ", type='" + type + "'" +
             ", value='" + value + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +

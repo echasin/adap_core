@@ -70,6 +70,11 @@ public class Category implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Asset> assets = new HashSet<>();
 
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Key> keys = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -148,6 +153,14 @@ public class Category implements Serializable {
 
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
+    }
+
+    public Set<Key> getKeys() {
+        return keys;
+    }
+
+    public void setKeys(Set<Key> keys) {
+        this.keys = keys;
     }
 
     @Override

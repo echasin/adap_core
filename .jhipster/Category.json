@@ -21,6 +21,12 @@
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipName": "key",
+            "otherEntityName": "key",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "category"
         }
     ],
     "fields": [

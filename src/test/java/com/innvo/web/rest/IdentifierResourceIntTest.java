@@ -48,8 +48,6 @@ public class IdentifierResourceIntTest {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
-    private static final String DEFAULT_TYPE = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_TYPE = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_VALUE = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_VALUE = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -94,7 +92,6 @@ public class IdentifierResourceIntTest {
     public void initTest() {
         identifierSearchRepository.deleteAll();
         identifier = new Identifier();
-        identifier.setType(DEFAULT_TYPE);
         identifier.setValue(DEFAULT_VALUE);
         identifier.setStatus(DEFAULT_STATUS);
         identifier.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
@@ -118,7 +115,6 @@ public class IdentifierResourceIntTest {
         List<Identifier> identifiers = identifierRepository.findAll();
         assertThat(identifiers).hasSize(databaseSizeBeforeCreate + 1);
         Identifier testIdentifier = identifiers.get(identifiers.size() - 1);
-        assertThat(testIdentifier.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testIdentifier.getValue()).isEqualTo(DEFAULT_VALUE);
         assertThat(testIdentifier.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testIdentifier.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
@@ -128,24 +124,6 @@ public class IdentifierResourceIntTest {
         // Validate the Identifier in ElasticSearch
         Identifier identifierEs = identifierSearchRepository.findOne(testIdentifier.getId());
         assertThat(identifierEs).isEqualToComparingFieldByField(testIdentifier);
-    }
-
-    @Test
-    @Transactional
-    public void checkTypeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = identifierRepository.findAll().size();
-        // set the field null
-        identifier.setType(null);
-
-        // Create the Identifier, which fails.
-
-        restIdentifierMockMvc.perform(post("/api/identifiers")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(identifier)))
-                .andExpect(status().isBadRequest());
-
-        List<Identifier> identifiers = identifierRepository.findAll();
-        assertThat(identifiers).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -249,7 +227,6 @@ public class IdentifierResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(identifier.getId().intValue())))
-                .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
                 .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
@@ -268,7 +245,6 @@ public class IdentifierResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(identifier.getId().intValue()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.value").value(DEFAULT_VALUE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
@@ -295,7 +271,6 @@ public class IdentifierResourceIntTest {
         // Update the identifier
         Identifier updatedIdentifier = new Identifier();
         updatedIdentifier.setId(identifier.getId());
-        updatedIdentifier.setType(UPDATED_TYPE);
         updatedIdentifier.setValue(UPDATED_VALUE);
         updatedIdentifier.setStatus(UPDATED_STATUS);
         updatedIdentifier.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
@@ -311,7 +286,6 @@ public class IdentifierResourceIntTest {
         List<Identifier> identifiers = identifierRepository.findAll();
         assertThat(identifiers).hasSize(databaseSizeBeforeUpdate);
         Identifier testIdentifier = identifiers.get(identifiers.size() - 1);
-        assertThat(testIdentifier.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testIdentifier.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testIdentifier.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testIdentifier.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
@@ -357,7 +331,6 @@ public class IdentifierResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(identifier.getId().intValue())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
