@@ -23,6 +23,9 @@
     <include file="classpath:config/liquibase/changelog/20160921012226_added_entity_Assetassetmbr.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160922012201_added_entity_Securitygroup.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160922012927_added_entity_Securitygrouprule.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160724203615_added_entity_Identifier.xml" relativeToChangelogFile="false"/>
+    
+    <include file="classpath:config/liquibase/changelog/20160924021324_added_entity_Key.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20160510172610_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160510172610_added_entity_constraints_Score.xml" relativeToChangelogFile="false"/>
@@ -33,7 +36,9 @@
     <include file="classpath:config/liquibase/changelog/20160510172610_added_entity_constraints_Asset.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160921012226_added_entity_constraints_Assetassetmbr.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160922012927_added_entity_constraints_Securitygrouprule.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20160724203615_added_entity_constraints_Identifier.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160924021324_added_entity_constraints_Key.xml" relativeToChangelogFile="false"/>
+<!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 	
 	<!-- DATA LOADING FILES  -->
 	<include file="classpath:config/liquibase/changelog/load_adap_0.xml" relativeToChangelogFile="false"/>

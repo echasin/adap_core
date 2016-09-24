@@ -92,6 +92,11 @@ public class Asset implements Serializable {
     @ManyToOne
     private Securitygroup securitygroup;
 
+    @OneToMany(mappedBy = "asset")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Identifier> identifiers = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -202,6 +207,14 @@ public class Asset implements Serializable {
 
     public void setSecuritygroup(Securitygroup securitygroup) {
         this.securitygroup = securitygroup;
+    }
+
+    public Set<Identifier> getIdentifiers() {
+        return identifiers;
+    }
+
+    public void setIdentifiers(Set<Identifier> identifiers) {
+        this.identifiers = identifiers;
     }
 
     @Override

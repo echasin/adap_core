@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,18 +8,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Category.
+ * A Identifier.
  */
 @Entity
-@Table(name = "category")
+@Table(name = "identifier")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "category")
-public class Category implements Serializable {
+@Document(indexName = "identifier")
+public class Identifier implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,13 +26,9 @@ public class Category implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
-
     @Size(max = 255)
-    @Column(name = "description", length = 255)
-    private String description;
+    @Column(name = "value", length = 255, nullable = false)
+    private String value;
 
     @NotNull
     @Size(max = 25)
@@ -57,23 +50,11 @@ public class Category implements Serializable {
     private String domain;
 
     @ManyToOne
+    private Asset asset;
+
+    @ManyToOne
     @NotNull
-    private Recordtype recordtype;
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Subcategory> subcategories = new HashSet<>();
-
-    @ManyToMany(mappedBy = "categories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Asset> assets = new HashSet<>();
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Key> keys = new HashSet<>();
+    private Key key;
 
     public Long getId() {
         return id;
@@ -83,20 +64,12 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getStatus() {
@@ -131,36 +104,20 @@ public class Category implements Serializable {
         this.domain = domain;
     }
 
-    public Recordtype getRecordtype() {
-        return recordtype;
+    public Asset getAsset() {
+        return asset;
     }
 
-    public void setRecordtype(Recordtype recordtype) {
-        this.recordtype = recordtype;
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 
-    public Set<Subcategory> getSubcategories() {
-        return subcategories;
+    public Key getKey() {
+        return key;
     }
 
-    public void setSubcategories(Set<Subcategory> subcategories) {
-        this.subcategories = subcategories;
-    }
-
-    public Set<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
-    }
-
-    public Set<Key> getKeys() {
-        return keys;
-    }
-
-    public void setKeys(Set<Key> keys) {
-        this.keys = keys;
+    public void setKey(Key key) {
+        this.key = key;
     }
 
     @Override
@@ -171,11 +128,11 @@ public class Category implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Category category = (Category) o;
-        if(category.id == null || id == null) {
+        Identifier identifier = (Identifier) o;
+        if(identifier.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, category.id);
+        return Objects.equals(id, identifier.id);
     }
 
     @Override
@@ -185,10 +142,9 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Identifier{" +
             "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
+            ", value='" + value + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
