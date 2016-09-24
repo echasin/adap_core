@@ -49,6 +49,12 @@
             "otherEntityName": "securitygroup",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "identifier",
+            "otherEntityName": "identifier",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "asset"
         }
     ],
     "fields": [

@@ -1,0 +1,2 @@
+id, name, description, groupid, vpcid, status, lastmodifiedby, lastmodifieddatetime, domain
+100,"Open-ssh-web","Security Group for ELK Development AWS Environment","sg-cb64cdb1","vpc-63e55c06","Active","echasin","2016-09-23 00:00:00","DEMO"

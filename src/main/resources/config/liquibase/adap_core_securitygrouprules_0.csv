@@ -1,0 +1,2 @@
+id, ruledirectiontype, ruletype, protocol, iprange, fromport, toport, status, lastmodifiedby, lastmodifieddatetime, domain, securitygroup_id
+100,"Inbound","HTTP","TCP","0.0.0.0/0",80,null,"Active","echasin","2016-09-01 00:00:00","DEMO",100
