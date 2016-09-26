@@ -53,7 +53,7 @@ public class Asset implements Serializable {
     private String domain;
 
     @OneToMany(mappedBy = "asset")
-    @JsonIgnore
+    //@JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Location> locations = new HashSet<>();
 

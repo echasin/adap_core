@@ -2,6 +2,7 @@ package com.innvo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.innvo.domain.Asset;
+import com.innvo.domain.Location;
 import com.innvo.repository.AssetRepository;
 import com.innvo.repository.search.AssetSearchRepository;
 import com.innvo.web.rest.util.HeaderUtil;
@@ -22,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -163,6 +165,28 @@ public class AssetResource {
         Page<Asset> page = assetSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/assets");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /assetlocations/:assetid : get the "assetid" location.
+     *
+     * @param id the id of the location to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the location, or with status 404 (Not Found)
+     */
+   @RequestMapping(value = "/assetobject/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Asset> getAssetLocation(@PathVariable Long id) {
+        log.debug("REST request to get Location by AssetId : {}", id);
+        Asset asset = assetRepository.findOne(id);
+        Set<Location> locations = assetRepository.findByAssetId(asset);
+        asset.setLocations(locations);
+        return Optional.ofNullable(asset)
+                .map(result -> new ResponseEntity<>(
+                    result,
+                    HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
