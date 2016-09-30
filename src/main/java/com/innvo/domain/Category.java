@@ -70,6 +70,16 @@ public class Category implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Asset> assets = new HashSet<>();
 
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Organization> organizations = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Organizationorganizationmbr> organizationorganizationmbrs = new HashSet<>();
+
     @OneToMany(mappedBy = "category")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -153,6 +163,22 @@ public class Category implements Serializable {
 
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
+    }
+
+    public Set<Organization> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
+    }
+
+    public Set<Organizationorganizationmbr> getOrganizationorganizationmbrs() {
+        return organizationorganizationmbrs;
+    }
+
+    public void setOrganizationorganizationmbrs(Set<Organizationorganizationmbr> organizationorganizationmbrs) {
+        this.organizationorganizationmbrs = organizationorganizationmbrs;
     }
 
     public Set<Key> getKeys() {

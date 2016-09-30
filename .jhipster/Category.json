@@ -22,6 +22,20 @@
             "ownerSide": false,
             "otherEntityRelationshipName": "category"
         },
+		{
+            "relationshipName": "organization",
+            "otherEntityName": "organization",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+		{
+            "relationshipName": "organizationorganizationmbr",
+            "otherEntityName": "organizationorganizationmbr",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
         {
             "relationshipName": "key",
             "otherEntityName": "key",

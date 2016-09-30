@@ -13,16 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import com.innvo.domain.enumeration.Objecttype;
-
 /**
- * A Recordtype.
+ * A Organization.
  */
 @Entity
-@Table(name = "recordtype")
+@Table(name = "organization")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "recordtype")
-public class Recordtype implements Serializable {
+@Document(indexName = "organization")
+public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,13 +29,8 @@ public class Recordtype implements Serializable {
     private Long id;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "objecttype", nullable = false)
-    private Objecttype objecttype;
-
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
+    @Size(max = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Size(max = 255)
@@ -63,20 +56,32 @@ public class Recordtype implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "recordtype")
+    @OneToMany(mappedBy = "organizationlhs")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Organizationorganizationmbr> organizationorganizationmbrlhs = new HashSet<>();
+
+    @OneToMany(mappedBy = "organizationrhs")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Organizationorganizationmbr> organizationorganizationmbrrhs = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "organization_category",
+               joinColumns = @JoinColumn(name="organizations_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
     private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "recordtype")
-    @JsonIgnore
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Asset> assets = new HashSet<>();
+    @JoinTable(name = "organization_subcategory",
+               joinColumns = @JoinColumn(name="organizations_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
+    private Set<Subcategory> subcategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "recordtype")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Organization> organizations = new HashSet<>();
+    @ManyToOne
+    private Recordtype recordtype;
 
     public Long getId() {
         return id;
@@ -84,14 +89,6 @@ public class Recordtype implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Objecttype getObjecttype() {
-        return objecttype;
-    }
-
-    public void setObjecttype(Objecttype objecttype) {
-        this.objecttype = objecttype;
     }
 
     public String getName() {
@@ -142,6 +139,22 @@ public class Recordtype implements Serializable {
         this.domain = domain;
     }
 
+    public Set<Organizationorganizationmbr> getOrganizationorganizationmbrlhs() {
+        return organizationorganizationmbrlhs;
+    }
+
+    public void setOrganizationorganizationmbrlhs(Set<Organizationorganizationmbr> organizationorganizationmbrs) {
+        this.organizationorganizationmbrlhs = organizationorganizationmbrs;
+    }
+
+    public Set<Organizationorganizationmbr> getOrganizationorganizationmbrrhs() {
+        return organizationorganizationmbrrhs;
+    }
+
+    public void setOrganizationorganizationmbrrhs(Set<Organizationorganizationmbr> organizationorganizationmbrs) {
+        this.organizationorganizationmbrrhs = organizationorganizationmbrs;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -150,20 +163,20 @@ public class Recordtype implements Serializable {
         this.categories = categories;
     }
 
-    public Set<Asset> getAssets() {
-        return assets;
+    public Set<Subcategory> getSubcategories() {
+        return subcategories;
     }
 
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
+    public void setSubcategories(Set<Subcategory> subcategories) {
+        this.subcategories = subcategories;
     }
 
-    public Set<Organization> getOrganizations() {
-        return organizations;
+    public Recordtype getRecordtype() {
+        return recordtype;
     }
 
-    public void setOrganizations(Set<Organization> organizations) {
-        this.organizations = organizations;
+    public void setRecordtype(Recordtype recordtype) {
+        this.recordtype = recordtype;
     }
 
     @Override
@@ -174,11 +187,11 @@ public class Recordtype implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Recordtype recordtype = (Recordtype) o;
-        if(recordtype.id == null || id == null) {
+        Organization organization = (Organization) o;
+        if(organization.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, recordtype.id);
+        return Objects.equals(id, organization.id);
     }
 
     @Override
@@ -188,9 +201,8 @@ public class Recordtype implements Serializable {
 
     @Override
     public String toString() {
-        return "Recordtype{" +
+        return "Organization{" +
             "id=" + id +
-            ", objecttype='" + objecttype + "'" +
             ", name='" + name + "'" +
             ", description='" + description + "'" +
             ", status='" + status + "'" +
