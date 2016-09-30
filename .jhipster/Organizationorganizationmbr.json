@@ -1,44 +1,34 @@
 {
     "relationships": [
         {
+            "relationshipName": "organizationlhs",
+            "otherEntityName": "organization",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "organizationrhs",
+            "otherEntityName": "organization",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+		{
             "relationshipName": "category",
             "otherEntityName": "category",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "asset",
-            "otherEntityName": "asset",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "organization",
-            "otherEntityName": "organization",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         }
     ],
     "fields": [
         {
-            "fieldName": "objecttype",
-            "fieldType": "Objecttype",
-            "fieldValues": "Asset,Organization,Person,Location,Event",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "50"
-        },
-        {
-            "fieldName": "description",
+            "fieldName": "comment",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
@@ -80,10 +70,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20160916210613",
+    "changelogDate": "20160930005124",
     "dto": "no",
     "service": "no",
-    "entityTableName": "recordtype",
+    "entityTableName": "organizationorganizationmbr",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

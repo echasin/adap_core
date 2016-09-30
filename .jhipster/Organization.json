@@ -1,33 +1,39 @@
 {
     "relationships": [
         {
+            "relationshipName": "organizationorganizationmbrlhs",
+            "otherEntityName": "organizationorganizationmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "organizationlhs"
+        },
+        {
+            "relationshipName": "organizationorganizationmbrrhs",
+            "otherEntityName": "organizationorganizationmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "organizationrhs"
+        },
+		 {
             "relationshipName": "category",
             "otherEntityName": "category",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         },
         {
-            "relationshipName": "asset",
-            "otherEntityName": "asset",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
+            "relationshipName": "subcategory",
+            "otherEntityName": "subcategory",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         },
         {
-            "relationshipName": "organization",
-            "otherEntityName": "organization",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
-        {
-            "fieldName": "objecttype",
-            "fieldType": "Objecttype",
-            "fieldValues": "Asset,Organization,Person,Location,Event",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
         {
             "fieldName": "name",
             "fieldType": "String",
@@ -35,7 +41,7 @@
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "description",
@@ -80,11 +86,11 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20160916210613",
+    "changelogDate": "20160930004807",
     "dto": "no",
     "service": "no",
-    "entityTableName": "recordtype",
-    "pagination": "pagination",
+    "entityTableName": "organization",
+    "pagination": "yes",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
 }

@@ -65,6 +65,11 @@ public class Subcategory implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Asset> assets = new HashSet<>();
 
+    @ManyToMany(mappedBy = "subcategories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Organization> organizations = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -135,6 +140,14 @@ public class Subcategory implements Serializable {
 
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
+    }
+
+    public Set<Organization> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
     }
 
     @Override
