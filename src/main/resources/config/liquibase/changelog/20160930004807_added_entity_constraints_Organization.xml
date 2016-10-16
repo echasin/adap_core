@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Organization.
+    -->
+    <changeSet id="20160930004807-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="organizations_id"
+                                 baseTableName="organization_category"
+                                 constraintName="fk_organization_category_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+        <addForeignKeyConstraint baseColumnNames="categories_id"
+                                 baseTableName="organization_category"
+                                 constraintName="fk_organization_category_organization_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+        
+        <addForeignKeyConstraint baseColumnNames="organizations_id"
+                                 baseTableName="organization_subcategory"
+                                 constraintName="fk_organization_subcategory_subcategory_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+        <addForeignKeyConstraint baseColumnNames="subcategories_id"
+                                 baseTableName="organization_subcategory"
+                                 constraintName="fk_organization_subcategory_organization_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subcategory"/>
+        
+        <addForeignKeyConstraint baseColumnNames="recordtype_id"
+                                 baseTableName="organization"
+                                 constraintName="fk_organization_recordtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recordtype"/>
+
+    </changeSet>
+</databaseChangeLog>
