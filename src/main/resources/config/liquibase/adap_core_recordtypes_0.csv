@@ -4,3 +4,5 @@ id,objecttype,name,description,status,lastmodifiedby,lastmodifieddatetime,domain
 200,Organization,Organization,null,Active,echasin,2016-09-01 00:00:00,DEMO
 202,Organization,Team,null,Active,echasin,2016-09-01 00:00:00,DEMO
 300,Event,Information Technology,null,Active,echasin,2016-09-01 00:00:00,DEMO
+400,Project,Program,null,Active,echasin,2016-09-01 00:00:00,DEMO
+402,Project,Project,null,Active,echasin,2016-09-01 00:00:00,DEMO
