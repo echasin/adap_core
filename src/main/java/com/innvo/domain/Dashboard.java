@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,18 +8,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Subcategory.
+ * A Dashboard.
  */
 @Entity
-@Table(name = "subcategory")
+@Table(name = "dashboard")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "subcategory")
-public class Subcategory implements Serializable {
+@Document(indexName = "dashboard")
+public class Dashboard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,10 +29,6 @@ public class Subcategory implements Serializable {
     @Size(max = 50)
     @Column(name = "name", length = 50, nullable = false)
     private String name;
-
-    @Size(max = 255)
-    @Column(name = "description", length = 255)
-    private String description;
 
     @NotNull
     @Size(max = 25)
@@ -56,30 +49,6 @@ public class Subcategory implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @ManyToOne
-    @NotNull
-    private Category category;
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Asset> assets = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Organization> organizations = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Project> projects = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Portfolio> portfolios = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -94,14 +63,6 @@ public class Subcategory implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getStatus() {
@@ -136,46 +97,6 @@ public class Subcategory implements Serializable {
         this.domain = domain;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Set<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
-    }
-
-    public Set<Organization> getOrganizations() {
-        return organizations;
-    }
-
-    public void setOrganizations(Set<Organization> organizations) {
-        this.organizations = organizations;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
-
-    public Set<Portfolio> getPortfolios() {
-        return portfolios;
-    }
-
-    public void setPortfolios(Set<Portfolio> portfolios) {
-        this.portfolios = portfolios;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -184,11 +105,11 @@ public class Subcategory implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subcategory subcategory = (Subcategory) o;
-        if(subcategory.id == null || id == null) {
+        Dashboard dashboard = (Dashboard) o;
+        if(dashboard.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, subcategory.id);
+        return Objects.equals(id, dashboard.id);
     }
 
     @Override
@@ -198,10 +119,9 @@ public class Subcategory implements Serializable {
 
     @Override
     public String toString() {
-        return "Subcategory{" +
+        return "Dashboard{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", description='" + description + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

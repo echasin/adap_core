@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Subcategory.
+ * A Project.
  */
 @Entity
-@Table(name = "subcategory")
+@Table(name = "project")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "subcategory")
-public class Subcategory implements Serializable {
+@Document(indexName = "project")
+public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,9 +29,14 @@ public class Subcategory implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
+    @Size(max = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
+
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "nameshort", length = 20, nullable = false)
+    private String nameshort;
 
     @Size(max = 255)
     @Column(name = "description", length = 255)
@@ -56,29 +61,37 @@ public class Subcategory implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
+    @OneToMany(mappedBy = "projectlhs")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Projectprojectmbr> projectprojectmbrlhs = new HashSet<>();
+
+    @OneToMany(mappedBy = "projectrhs")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Projectprojectmbr> projectprojectmbrmbrrhs = new HashSet<>();
+
+    @OneToMany(mappedBy = "projectrhs")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Portfolioprojectmbr> portfolioprojectmbrrhs = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "project_category",
+               joinColumns = @JoinColumn(name="projects_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
+    private Set<Category> categories = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "project_subcategory",
+               joinColumns = @JoinColumn(name="projects_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
+    private Set<Subcategory> subcategories = new HashSet<>();
+
     @ManyToOne
-    @NotNull
-    private Category category;
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Asset> assets = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Organization> organizations = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Project> projects = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Portfolio> portfolios = new HashSet<>();
+    private Recordtype recordtype;
 
     public Long getId() {
         return id;
@@ -94,6 +107,14 @@ public class Subcategory implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameshort() {
+        return nameshort;
+    }
+
+    public void setNameshort(String nameshort) {
+        this.nameshort = nameshort;
     }
 
     public String getDescription() {
@@ -136,44 +157,52 @@ public class Subcategory implements Serializable {
         this.domain = domain;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Projectprojectmbr> getProjectprojectmbrlhs() {
+        return projectprojectmbrlhs;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setProjectprojectmbrlhs(Set<Projectprojectmbr> projectprojectmbrs) {
+        this.projectprojectmbrlhs = projectprojectmbrs;
     }
 
-    public Set<Asset> getAssets() {
-        return assets;
+    public Set<Projectprojectmbr> getProjectprojectmbrmbrrhs() {
+        return projectprojectmbrmbrrhs;
     }
 
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
+    public void setProjectprojectmbrmbrrhs(Set<Projectprojectmbr> projectprojectmbrs) {
+        this.projectprojectmbrmbrrhs = projectprojectmbrs;
     }
 
-    public Set<Organization> getOrganizations() {
-        return organizations;
+    public Set<Portfolioprojectmbr> getPortfolioprojectmbrrhs() {
+        return portfolioprojectmbrrhs;
     }
 
-    public void setOrganizations(Set<Organization> organizations) {
-        this.organizations = organizations;
+    public void setPortfolioprojectmbrrhs(Set<Portfolioprojectmbr> portfolioprojectmbrs) {
+        this.portfolioprojectmbrrhs = portfolioprojectmbrs;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
-    public Set<Portfolio> getPortfolios() {
-        return portfolios;
+    public Set<Subcategory> getSubcategories() {
+        return subcategories;
     }
 
-    public void setPortfolios(Set<Portfolio> portfolios) {
-        this.portfolios = portfolios;
+    public void setSubcategories(Set<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+    public Recordtype getRecordtype() {
+        return recordtype;
+    }
+
+    public void setRecordtype(Recordtype recordtype) {
+        this.recordtype = recordtype;
     }
 
     @Override
@@ -184,11 +213,11 @@ public class Subcategory implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subcategory subcategory = (Subcategory) o;
-        if(subcategory.id == null || id == null) {
+        Project project = (Project) o;
+        if(project.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, subcategory.id);
+        return Objects.equals(id, project.id);
     }
 
     @Override
@@ -198,9 +227,10 @@ public class Subcategory implements Serializable {
 
     @Override
     public String toString() {
-        return "Subcategory{" +
+        return "Project{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", nameshort='" + nameshort + "'" +
             ", description='" + description + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +

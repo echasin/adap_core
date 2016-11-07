@@ -1,6 +1,5 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -14,13 +13,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Subcategory.
+ * A Projectprojectmbr.
  */
 @Entity
-@Table(name = "subcategory")
+@Table(name = "projectprojectmbr")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "subcategory")
-public class Subcategory implements Serializable {
+@Document(indexName = "projectprojectmbr")
+public class Projectprojectmbr implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,14 +27,9 @@ public class Subcategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
-
     @Size(max = 255)
-    @Column(name = "description", length = 255)
-    private String description;
+    @Column(name = "comment", length = 255)
+    private String comment;
 
     @NotNull
     @Size(max = 25)
@@ -58,27 +52,18 @@ public class Subcategory implements Serializable {
 
     @ManyToOne
     @NotNull
-    private Category category;
+    private Project projectlhs;
 
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Asset> assets = new HashSet<>();
+    @ManyToOne
+    @NotNull
+    private Project projectrhs;
 
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Organization> organizations = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Project> projects = new HashSet<>();
-
-    @ManyToMany(mappedBy = "subcategories")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Portfolio> portfolios = new HashSet<>();
+    @JoinTable(name = "projectprojectmbr_category",
+               joinColumns = @JoinColumn(name="projectprojectmbrs_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
+    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -88,20 +73,12 @@ public class Subcategory implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getComment() {
+        return comment;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getStatus() {
@@ -136,44 +113,28 @@ public class Subcategory implements Serializable {
         this.domain = domain;
     }
 
-    public Category getCategory() {
-        return category;
+    public Project getProjectlhs() {
+        return projectlhs;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setProjectlhs(Project project) {
+        this.projectlhs = project;
     }
 
-    public Set<Asset> getAssets() {
-        return assets;
+    public Project getProjectrhs() {
+        return projectrhs;
     }
 
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
+    public void setProjectrhs(Project project) {
+        this.projectrhs = project;
     }
 
-    public Set<Organization> getOrganizations() {
-        return organizations;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setOrganizations(Set<Organization> organizations) {
-        this.organizations = organizations;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
-
-    public Set<Portfolio> getPortfolios() {
-        return portfolios;
-    }
-
-    public void setPortfolios(Set<Portfolio> portfolios) {
-        this.portfolios = portfolios;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override
@@ -184,11 +145,11 @@ public class Subcategory implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subcategory subcategory = (Subcategory) o;
-        if(subcategory.id == null || id == null) {
+        Projectprojectmbr projectprojectmbr = (Projectprojectmbr) o;
+        if(projectprojectmbr.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, subcategory.id);
+        return Objects.equals(id, projectprojectmbr.id);
     }
 
     @Override
@@ -198,10 +159,9 @@ public class Subcategory implements Serializable {
 
     @Override
     public String toString() {
-        return "Subcategory{" +
+        return "Projectprojectmbr{" +
             "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
+            ", comment='" + comment + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

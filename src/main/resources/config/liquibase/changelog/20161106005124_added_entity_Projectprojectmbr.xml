@@ -14,10 +14,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Organizationorganizationmbr.
+        Added the entity Projectprojectmbr.
     -->
-    <changeSet id="20160930005124-1" author="jhipster">
-        <createTable tableName="organizationorganizationmbr">
+    <changeSet id="20161106005124-1" author="jhipster">
+        <createTable tableName="projectprojectmbr">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -41,30 +41,30 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="organizationlhs_id" type="bigint">
+            <column name="projectlhs_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
-            <column name="organizationrhs_id" type="bigint">
+            <column name="projectrhs_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="organizationorganizationmbr" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        <dropDefaultValue tableName="projectprojectmbr" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
         <!-- THIS TABLE IS NOT REQUIRED -->
-        <!--  
-        <createTable tableName="organizationorganizationmbr_category">
+        <!-- createTable tableName="projectprojectmbr_category">
             <column name="categories_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="organizationorganizationmbrs_id" type="bigint">
+            <column name="projectprojectmbrs_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+     
 
-        <addPrimaryKey columnNames="organizationorganizationmbrs_id, categories_id" tableName="organizationorganizationmbr_category"/>
+        <addPrimaryKey columnNames="projectprojectmbrs_id, categories_id" tableName="projectprojectmbr_category"/>
         -->
     </changeSet>
 </databaseChangeLog>

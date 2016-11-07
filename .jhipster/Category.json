@@ -30,8 +30,15 @@
             "otherEntityRelationshipName": "category"
         },
 		{
-            "relationshipName": "organizationorganizationmbr",
-            "otherEntityName": "organizationorganizationmbr",
+            "relationshipName": "project",
+            "otherEntityName": "project",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+		{
+            "relationshipName": "portfolio",
+            "otherEntityName": "portfolio",
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "category"

@@ -78,7 +78,12 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy = "categories")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Organizationorganizationmbr> organizationorganizationmbrs = new HashSet<>();
+    private Set<Project> projects = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Portfolio> portfolios = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
     @JsonIgnore
@@ -173,12 +178,20 @@ public class Category implements Serializable {
         this.organizations = organizations;
     }
 
-    public Set<Organizationorganizationmbr> getOrganizationorganizationmbrs() {
-        return organizationorganizationmbrs;
+    public Set<Project> getProjects() {
+        return projects;
     }
 
-    public void setOrganizationorganizationmbrs(Set<Organizationorganizationmbr> organizationorganizationmbrs) {
-        this.organizationorganizationmbrs = organizationorganizationmbrs;
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public Set<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(Set<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 
     public Set<Key> getKeys() {

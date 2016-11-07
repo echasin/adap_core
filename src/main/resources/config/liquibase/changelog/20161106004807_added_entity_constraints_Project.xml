@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Project.
+    -->
+    <changeSet id="20161106004807-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="projects_id"
+                                 baseTableName="project_category"
+                                 constraintName="fk_project_category_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+        <addForeignKeyConstraint baseColumnNames="categories_id"
+                                 baseTableName="project_category"
+                                 constraintName="fk_project_category_project_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+        
+        <addForeignKeyConstraint baseColumnNames="projects_id"
+                                 baseTableName="project_subcategory"
+                                 constraintName="fk_project_subcategory_subcategory_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+        <addForeignKeyConstraint baseColumnNames="subcategories_id"
+                                 baseTableName="project_subcategory"
+                                 constraintName="fk_project_subcategory_project_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subcategory"/>
+        
+        <addForeignKeyConstraint baseColumnNames="recordtype_id"
+                                 baseTableName="project"
+                                 constraintName="fk_project_recordtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recordtype"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -20,6 +20,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="organization"/>
 
+        <!-- THIS TABLE IS NOT REQUIRED -->
+        <!--  
+        
         <addForeignKeyConstraint baseColumnNames="organizationorganizationmbrs_id"
                                  baseTableName="organizationorganizationmbr_category"
                                  constraintName="fk_organizationorganizationmbr_category_category_id"
@@ -30,6 +33,7 @@
                                  constraintName="fk_organizationorganizationmbr_category_organizationorganizationmbr_id"
                                  referencedColumnNames="id"
                                  referencedTableName="category"/>
+        -->
         
     </changeSet>
 </databaseChangeLog>
