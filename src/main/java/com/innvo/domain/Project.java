@@ -71,6 +71,11 @@ public class Project implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Projectprojectmbr> projectprojectmbrmbrrhs = new HashSet<>();
 
+    @OneToMany(mappedBy = "projectrhs")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Portfolioprojectmbr> portfolioprojectmbrrhs = new HashSet<>();
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "project_category",
@@ -166,6 +171,14 @@ public class Project implements Serializable {
 
     public void setProjectprojectmbrmbrrhs(Set<Projectprojectmbr> projectprojectmbrs) {
         this.projectprojectmbrmbrrhs = projectprojectmbrs;
+    }
+
+    public Set<Portfolioprojectmbr> getPortfolioprojectmbrrhs() {
+        return portfolioprojectmbrrhs;
+    }
+
+    public void setPortfolioprojectmbrrhs(Set<Portfolioprojectmbr> portfolioprojectmbrs) {
+        this.portfolioprojectmbrrhs = portfolioprojectmbrs;
     }
 
     public Set<Category> getCategories() {

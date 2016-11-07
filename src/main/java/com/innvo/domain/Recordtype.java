@@ -83,6 +83,11 @@ public class Recordtype implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Project> projects = new HashSet<>();
 
+    @OneToMany(mappedBy = "recordtype")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Portfolio> portfolios = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -177,6 +182,14 @@ public class Recordtype implements Serializable {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    public Set<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(Set<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 
     @Override

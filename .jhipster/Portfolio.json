@@ -1,24 +1,12 @@
 {
     "relationships": [
-        {
-            "relationshipName": "projectprojectmbrlhs",
-            "otherEntityName": "projectprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectlhs"
-        },
-        {
-            "relationshipName": "projectprojectmbrmbrrhs",
-            "otherEntityName": "projectprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectrhs"
-        },
-		{
-            "relationshipName": "portfolioprojectmbrrhs",
+         {
+            "relationshipName": "portfolioprojectmbrlhs",
             "otherEntityName": "portfolioprojectmbr",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectrhs"
+            "otherEntityRelationshipName": "portfoliolhs"
         },
-		{
+	   {
             "relationshipName": "category",
             "otherEntityName": "category",
             "relationshipType": "many-to-many",
@@ -104,7 +92,7 @@
     "changelogDate": "20161106004807",
     "dto": "no",
     "service": "no",
-    "entityTableName": "project",
+    "entityTableName": "portfolio",
     "pagination": "yes",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
