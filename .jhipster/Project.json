@@ -1,56 +1,36 @@
 {
     "relationships": [
         {
-            "relationshipName": "recordtype",
-            "otherEntityName": "recordtype",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
+            "relationshipName": "projectprojectmbrlhs",
+            "otherEntityName": "projectprojectmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "projectlhs"
+        },
+        {
+            "relationshipName": "projectprojectmbrmbrrhs",
+            "otherEntityName": "projectprojectmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "projectrhs"
+        },
+		 {
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         },
         {
             "relationshipName": "subcategory",
             "otherEntityName": "subcategory",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "category"
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
         },
         {
-            "relationshipName": "asset",
-            "otherEntityName": "asset",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "category"
-        },
-		{
-            "relationshipName": "organization",
-            "otherEntityName": "organization",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "category"
-        },
-		{
-            "relationshipName": "project",
-            "otherEntityName": "project",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "category"
-        },
-		
-		
-		
-		{
-            "relationshipName": "organizationorganizationmbr",
-            "otherEntityName": "organizationorganizationmbr",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "category"
-        },
-        {
-            "relationshipName": "key",
-            "otherEntityName": "key",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "category"
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -61,7 +41,16 @@
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "100"
+        },
+		 {
+            "fieldName": "nameshort",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
         },
         {
             "fieldName": "description",
@@ -106,11 +95,11 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20160916210942",
+    "changelogDate": "20161106004807",
     "dto": "no",
     "service": "no",
-    "entityTableName": "category",
-    "pagination": "pagination",
+    "entityTableName": "project",
+    "pagination": "yes",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
 }

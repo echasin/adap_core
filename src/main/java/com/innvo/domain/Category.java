@@ -85,6 +85,11 @@ public class Category implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Key> keys = new HashSet<>();
 
+    @OneToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Project> projects = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -187,6 +192,14 @@ public class Category implements Serializable {
 
     public void setKeys(Set<Key> keys) {
         this.keys = keys;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     @Override
