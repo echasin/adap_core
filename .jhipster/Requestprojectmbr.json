@@ -1,8 +1,8 @@
 {
     "relationships": [
-        {
-            "relationshipName": "organizationlhs",
-            "otherEntityName": "organization",
+	      {
+            "relationshipName": "requestlhs",
+            "otherEntityName": "request",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [
                 "required"
@@ -10,17 +10,17 @@
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "organizationrhs",
-            "otherEntityName": "organization",
+            "relationshipName": "projectrhs",
+            "otherEntityName": "project",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [
                 "required"
             ],
             "otherEntityField": "name"
         }
-    ],
+	],
     "fields": [
-        {
+	  {
             "fieldName": "comment",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -62,12 +62,12 @@
             ],
             "fieldValidateRulesMaxlength": "25"
         }
-    ],
-    "changelogDate": "20160930005124",
+	],
+    "changelogDate": "20161110122709",
     "dto": "no",
     "service": "no",
-    "entityTableName": "organizationorganizationmbr",
-    "pagination": "pagination",
+    "entityTableName": "requestprojectmbr",
+    "pagination": "no",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
 }

@@ -1,0 +1,28 @@
+{
+    "relationships": [
+		 {
+            "relationshipName": "requestprojectmbrlhs",
+            "otherEntityName": "requestprojectmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "requestlhs"
+        }
+	],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        }
+    ],
+    "changelogDate": "20161110122310",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "request",
+    "pagination": "no",
+    "microserviceName": "adap_core",
+    "searchEngine": "elasticsearch"
+}
