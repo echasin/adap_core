@@ -19,6 +19,12 @@
             "otherEntityRelationshipName": "projectrhs"
         },
 		{
+            "relationshipName": "requestprojectmbrrhs",
+            "otherEntityName": "requestprojectmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "projectrhs"
+        },
+		{
             "relationshipName": "category",
             "otherEntityName": "category",
             "relationshipType": "many-to-many",
