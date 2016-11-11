@@ -188,5 +188,19 @@ public class AssetResource {
                     HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+   
+   @RequestMapping(value = "/assetname/{id}",
+	        method = RequestMethod.GET,
+	        produces = MediaType.APPLICATION_JSON_VALUE)
+	    @Timed
+	    public ResponseEntity<Asset> getAssetName(@PathVariable Long id) {
+	        log.debug("REST request to get Location by AssetId : {}", id);
+	        Asset asset = assetRepository.findOne(id);
+	        return Optional.ofNullable(asset)
+	                .map(result -> new ResponseEntity<>(
+	                    result,
+	                    HttpStatus.OK))
+	                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	    }
 
 }
