@@ -1,0 +1,4 @@
+id,name,description,status,lastmodifiedby,lastmodifieddatetime,domain
+20000,Open,Request State Open,Active,echasin,2016-11-13 00:00:00,PPRM
+20001,Approved,Request State Approved,Active,echasin,2016-11-13 00:00:00,PPRM
+20002,Closed,Request State Closed,Active,echasin,2016-11-13 00:00:00,PPRM
