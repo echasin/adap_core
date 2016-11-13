@@ -1,0 +1,5 @@
+id,name,nameshort,description,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
+20000,Jets  Agile/Devops Program,Jets,Jet program is an agile operations and maintenence program,Active,echasin,2016-11-12 00:00:00,PPRM,400
+20001,OIA Technology Infrastructure Modernization Program,TIM,Technology Infrastructure Modernization Program (TIM) is an enterprise architecture designed to align TSA security threat assessment (STA) with credentialing activities for individuals.,Active,echasin,2016-11-12 00:00:00,PPRM,400
+20002,Mission RIsk Knowledge Center,MRK,"MRKC is an enterprise wide risk-based analytical platform designed to provide TSA leadership with aviation and surface risk ,  vulnerabilities,  analytical models to  provide overall security domain awareness capabilities.",Active,echasin,2016-11-12 00:00:00,PPRM,400
+20003,MRK Center Release 1.0 (Intial Operating Capability),MRK 1.0,MRK 1.0 is a web based risk analytics platform.,Active,echasin,2016-11-12 00:00:00,PPRM,402

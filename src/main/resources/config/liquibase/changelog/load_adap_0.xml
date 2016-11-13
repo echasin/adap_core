@@ -49,6 +49,27 @@
 		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_identifiers_0.csv" separator=","
 			tableName="identifier" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_projects_0.csv" separator=","
+			tableName="project" />
+
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_portfolios_0.csv" separator=","
+			tableName="portfolio" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_portfolioprojectmbrs_0.csv" separator=","
+			tableName="portfolioprojectmbr" />
+			
+	    <loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_projectprojectmbrs_0.csv" separator=","
+			tableName="projectprojectmbr" />
+			
+			
+				
+			
+			
 	</changeSet>
 
 
