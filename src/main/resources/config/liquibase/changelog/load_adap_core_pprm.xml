@@ -32,7 +32,7 @@
  
  		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_projectprojectmbrs_pprm.csv" separator=","
-			tableName="portfolioprojectmbr" />
+			tableName="projectprojectmbr" />
  
 	</changeSet>
 

@@ -64,7 +64,7 @@
 			
 	    <loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_projectprojectmbrs_0.csv" separator=","
-			tableName="portfolioprojectmbr" />
+			tableName="projectprojectmbr" />
 			
 			
 				
