@@ -14,5 +14,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="recordtype"/>
 
+        <addForeignKeyConstraint baseColumnNames="requeststate_id"
+                                 baseTableName="request"
+                                 constraintName="fk_request_requeststate_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="requeststate"/>
+
+        <addForeignKeyConstraint baseColumnNames="fiscalyear_id"
+                                 baseTableName="request"
+                                 constraintName="fk_request_fiscalyear_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fiscalyear"/>
+
     </changeSet>
 </databaseChangeLog>

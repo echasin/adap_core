@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Request.
+ * A Requeststate.
  */
 @Entity
-@Table(name = "request")
+@Table(name = "requeststate")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "request")
-public class Request implements Serializable {
+@Document(indexName = "requeststate")
+public class Requeststate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,8 +29,8 @@ public class Request implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
+    @Size(max = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     @Size(max = 255)
@@ -56,21 +56,10 @@ public class Request implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @OneToMany(mappedBy = "requestlhs")
+    @OneToMany(mappedBy = "requeststate")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Requestprojectmbr> requestprojectmbrlhs = new HashSet<>();
-
-    @ManyToOne
-    private Recordtype recordtype;
-
-    @ManyToOne
-    @NotNull
-    private Requeststate requeststate;
-
-    @ManyToOne
-    @NotNull
-    private Fiscalyear fiscalyear;
+    private Set<Request> requests = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -128,36 +117,12 @@ public class Request implements Serializable {
         this.domain = domain;
     }
 
-    public Set<Requestprojectmbr> getRequestprojectmbrlhs() {
-        return requestprojectmbrlhs;
+    public Set<Request> getRequests() {
+        return requests;
     }
 
-    public void setRequestprojectmbrlhs(Set<Requestprojectmbr> requestprojectmbrs) {
-        this.requestprojectmbrlhs = requestprojectmbrs;
-    }
-
-    public Recordtype getRecordtype() {
-        return recordtype;
-    }
-
-    public void setRecordtype(Recordtype recordtype) {
-        this.recordtype = recordtype;
-    }
-
-    public Requeststate getRequeststate() {
-        return requeststate;
-    }
-
-    public void setRequeststate(Requeststate requeststate) {
-        this.requeststate = requeststate;
-    }
-
-    public Fiscalyear getFiscalyear() {
-        return fiscalyear;
-    }
-
-    public void setFiscalyear(Fiscalyear fiscalyear) {
-        this.fiscalyear = fiscalyear;
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
 
     @Override
@@ -168,11 +133,11 @@ public class Request implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Request request = (Request) o;
-        if(request.id == null || id == null) {
+        Requeststate requeststate = (Requeststate) o;
+        if(requeststate.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, request.id);
+        return Objects.equals(id, requeststate.id);
     }
 
     @Override
@@ -182,7 +147,7 @@ public class Request implements Serializable {
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Requeststate{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", description='" + description + "'" +

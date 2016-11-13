@@ -1,45 +1,21 @@
 {
     "relationships": [
         {
-            "relationshipName": "requestprojectmbrlhs",
-            "otherEntityName": "requestprojectmbr",
+            "relationshipName": "request",
+            "otherEntityName": "request",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "requestlhs"
-        },
-        {
-            "relationshipName": "recordtype",
-            "otherEntityName": "recordtype",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "requeststate",
-            "otherEntityName": "requeststate",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-		  {
-            "relationshipName": "fiscalyear",
-            "otherEntityName": "fiscalyear",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "value"
+            "otherEntityRelationshipName": "fiscalyear"
         }
     ],
     "fields": [
         {
-            "fieldName": "name",
+            "fieldName": "value",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "100"
+            "fieldValidateRulesMaxlength": "50"
         },
         {
             "fieldName": "description",
@@ -84,11 +60,11 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20161110122310",
+    "changelogDate": "20161113210615",
     "dto": "no",
     "service": "no",
-    "entityTableName": "request",
-    "pagination": "no",
+    "entityTableName": "fiscalyear",
+    "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
 }

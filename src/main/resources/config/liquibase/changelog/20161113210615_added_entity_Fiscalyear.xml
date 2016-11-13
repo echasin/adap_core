@@ -14,14 +14,14 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Request.
+        Added the entity Fiscalyear.
     -->
-    <changeSet id="20161110122310-1" author="jhipster">
-        <createTable tableName="request">
+    <changeSet id="20161113210615-1" author="jhipster">
+        <createTable tableName="fiscalyear">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="value" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
             
@@ -45,21 +45,9 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="recordtype_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="requeststate_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="fiscalyear_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="request" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        <dropDefaultValue tableName="fiscalyear" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>
