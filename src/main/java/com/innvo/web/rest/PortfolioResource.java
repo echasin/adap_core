@@ -20,6 +20,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,6 +62,10 @@ public class PortfolioResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("portfolio", "idexists", "A new portfolio cannot already have an ID")).body(null);
         }
         Portfolio result = portfolioRepository.save(portfolio);
+        Date date=new Date();
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(),
+                ZoneId.systemDefault());
+        result.setLastmodifieddatetime(zonedDateTime);
         portfolioSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/portfolios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("portfolio", result.getId().toString()))
@@ -84,6 +91,10 @@ public class PortfolioResource {
             return createPortfolio(portfolio);
         }
         Portfolio result = portfolioRepository.save(portfolio);
+        Date date=new Date();
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(),
+                ZoneId.systemDefault());
+        result.setLastmodifieddatetime(zonedDateTime);
         portfolioSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("portfolio", portfolio.getId().toString()))
