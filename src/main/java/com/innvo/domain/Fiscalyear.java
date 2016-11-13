@@ -8,20 +8,19 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Request.
+ * A Fiscalyear.
  */
 @Entity
-@Table(name = "request")
+@Table(name = "fiscalyear")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "request")
-public class Request implements Serializable {
+@Document(indexName = "fiscalyear")
+public class Fiscalyear implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,9 +29,9 @@ public class Request implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
+    @Size(max = 50)
+    @Column(name = "value", length = 50, nullable = false)
+    private String value;
 
     @Size(max = 255)
     @Column(name = "description", length = 255)
@@ -57,24 +56,10 @@ public class Request implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @Column(name = "amountrequested", precision=10, scale=2)
-    private BigDecimal amountrequested;
-
-    @OneToMany(mappedBy = "requestlhs")
+    @OneToMany(mappedBy = "fiscalyear")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Requestprojectmbr> requestprojectmbrlhs = new HashSet<>();
-
-    @ManyToOne
-    private Recordtype recordtype;
-
-    @ManyToOne
-    @NotNull
-    private Requeststate requeststate;
-
-    @ManyToOne
-    @NotNull
-    private Fiscalyear fiscalyear;
+    private Set<Request> requests = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -84,12 +69,12 @@ public class Request implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getDescription() {
@@ -132,44 +117,12 @@ public class Request implements Serializable {
         this.domain = domain;
     }
 
-    public BigDecimal getAmountrequested() {
-        return amountrequested;
+    public Set<Request> getRequests() {
+        return requests;
     }
 
-    public void setAmountrequested(BigDecimal amountrequested) {
-        this.amountrequested = amountrequested;
-    }
-
-    public Set<Requestprojectmbr> getRequestprojectmbrlhs() {
-        return requestprojectmbrlhs;
-    }
-
-    public void setRequestprojectmbrlhs(Set<Requestprojectmbr> requestprojectmbrs) {
-        this.requestprojectmbrlhs = requestprojectmbrs;
-    }
-
-    public Recordtype getRecordtype() {
-        return recordtype;
-    }
-
-    public void setRecordtype(Recordtype recordtype) {
-        this.recordtype = recordtype;
-    }
-
-    public Requeststate getRequeststate() {
-        return requeststate;
-    }
-
-    public void setRequeststate(Requeststate requeststate) {
-        this.requeststate = requeststate;
-    }
-
-    public Fiscalyear getFiscalyear() {
-        return fiscalyear;
-    }
-
-    public void setFiscalyear(Fiscalyear fiscalyear) {
-        this.fiscalyear = fiscalyear;
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
 
     @Override
@@ -180,11 +133,11 @@ public class Request implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Request request = (Request) o;
-        if(request.id == null || id == null) {
+        Fiscalyear fiscalyear = (Fiscalyear) o;
+        if(fiscalyear.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, request.id);
+        return Objects.equals(id, fiscalyear.id);
     }
 
     @Override
@@ -194,15 +147,14 @@ public class Request implements Serializable {
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Fiscalyear{" +
             "id=" + id +
-            ", name='" + name + "'" +
+            ", value='" + value + "'" +
             ", description='" + description + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
-            ", amountrequested='" + amountrequested + "'" +
             '}';
     }
 }

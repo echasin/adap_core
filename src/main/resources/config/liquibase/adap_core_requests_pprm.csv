@@ -1,0 +1,10 @@
+id,name,description,status,lastmodifiedby,lastmodifieddatetime,domain,amountrequested,recordtype_id,requeststate_id,fiscalyear_id
+20000,Request One,Description Request One - Open/2016/100,Active,echasin,2016-11-13 00:00:00,PPRM,100.00,400,20000,20001
+20001,Request Two,Description Request Two - Open/2015/200,Active,echasin,2016-11-13 00:00:00,PPRM,200.00,400,20000,20002
+20002,Request Three,Description Request Three - Open/2014/300,Active,echasin,2016-11-13 00:00:00,PPRM,300.00,400,20000,20003
+20003,Request Four,Description Request Four - Approved/2016/10,Active,echasin,2016-11-13 00:00:00,PPRM,10.00,400,20001,20001
+20004,Request Five,Description Request Five - Approved/2015/20,Active,echasin,2016-11-13 00:00:00,PPRM,20.00,400,20001,20002
+20005,Request Six,Description Request Six - Approved/2016/30,Active,echasin,2016-11-13 00:00:00,PPRM,30.00,400,20001,20001
+20006,Request Seven,Description Request Seven - Closed/2016/1,Active,echasin,2016-11-13 00:00:00,PPRM,1,400,20002,20001
+20007,Request Eight,Description Request Eight - Closed/2014/3,Active,echasin,2016-11-13 00:00:00,PPRM,3,400,20002,20003
+20008,Request Nine,Description Request Nine - Closed/2013/-10,Active,echasin,2016-11-13 00:00:00,PPRM,-10,400,20002,20004

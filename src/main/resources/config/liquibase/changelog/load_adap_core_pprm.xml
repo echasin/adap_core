@@ -33,6 +33,22 @@
  		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_projectprojectmbrs_pprm.csv" separator=","
 			tableName="projectprojectmbr" />
+			
+ 		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_fiscalyear_pprm.csv" separator=","
+			tableName="fiscalyear" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_requeststate_pprm.csv" separator=","
+			tableName="requeststate" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_requests_pprm.csv" separator=","
+			tableName="request" />
+			
+ 		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_requestprojectmbr_pprm.csv" separator=","
+			tableName="requestprojectmbr" />
  
 	</changeSet>
 

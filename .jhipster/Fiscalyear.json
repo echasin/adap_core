@@ -1,53 +1,15 @@
 {
     "relationships": [
         {
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "asset",
-            "otherEntityName": "asset",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "organization",
-            "otherEntityName": "organization",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "project",
-            "otherEntityName": "project",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-        {
-            "relationshipName": "portfolio",
-            "otherEntityName": "portfolio",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
-        },
-		{
             "relationshipName": "request",
             "otherEntityName": "request",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "recordtype"
+            "otherEntityRelationshipName": "fiscalyear"
         }
     ],
     "fields": [
         {
-            "fieldName": "objecttype",
-            "fieldType": "Objecttype",
-            "fieldValues": "Asset,Organization,Person,Location,Event,Project,Portfolio",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "name",
+            "fieldName": "value",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
@@ -98,10 +60,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20160916210613",
+    "changelogDate": "20161113210615",
     "dto": "no",
     "service": "no",
-    "entityTableName": "recordtype",
+    "entityTableName": "fiscalyear",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"
