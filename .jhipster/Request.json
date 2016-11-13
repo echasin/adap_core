@@ -21,7 +21,7 @@
             ],
             "otherEntityField": "name"
         },
-		  {
+        {
             "relationshipName": "fiscalyear",
             "otherEntityName": "fiscalyear",
             "relationshipType": "many-to-one",
@@ -82,6 +82,10 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "amountrequested",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20161110122310",

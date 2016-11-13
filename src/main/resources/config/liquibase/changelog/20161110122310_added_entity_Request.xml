@@ -45,6 +45,10 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="amountrequested" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="recordtype_id" type="bigint">
                 <constraints nullable="true" />
             </column>

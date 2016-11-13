@@ -28,6 +28,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
+import java.math.BigDecimal;;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,6 +63,9 @@ public class RequestResourceIntTest {
     private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
     private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final BigDecimal DEFAULT_AMOUNTREQUESTED = new BigDecimal(1);
+    private static final BigDecimal UPDATED_AMOUNTREQUESTED = new BigDecimal(2);
 
     @Inject
     private RequestRepository requestRepository;
@@ -100,6 +104,7 @@ public class RequestResourceIntTest {
         request.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
         request.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
         request.setDomain(DEFAULT_DOMAIN);
+        request.setAmountrequested(DEFAULT_AMOUNTREQUESTED);
     }
 
     @Test
@@ -124,6 +129,7 @@ public class RequestResourceIntTest {
         assertThat(testRequest.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
         assertThat(testRequest.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
         assertThat(testRequest.getDomain()).isEqualTo(DEFAULT_DOMAIN);
+        assertThat(testRequest.getAmountrequested()).isEqualTo(DEFAULT_AMOUNTREQUESTED);
 
         // Validate the Request in ElasticSearch
         Request requestEs = requestSearchRepository.findOne(testRequest.getId());
@@ -236,7 +242,8 @@ public class RequestResourceIntTest {
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
+                .andExpect(jsonPath("$.[*].amountrequested").value(hasItem(DEFAULT_AMOUNTREQUESTED.intValue())));
     }
 
     @Test
@@ -255,7 +262,8 @@ public class RequestResourceIntTest {
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
             .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
-            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()))
+            .andExpect(jsonPath("$.amountrequested").value(DEFAULT_AMOUNTREQUESTED.intValue()));
     }
 
     @Test
@@ -283,6 +291,7 @@ public class RequestResourceIntTest {
         updatedRequest.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
         updatedRequest.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
         updatedRequest.setDomain(UPDATED_DOMAIN);
+        updatedRequest.setAmountrequested(UPDATED_AMOUNTREQUESTED);
 
         restRequestMockMvc.perform(put("/api/requests")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -299,6 +308,7 @@ public class RequestResourceIntTest {
         assertThat(testRequest.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
         assertThat(testRequest.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
         assertThat(testRequest.getDomain()).isEqualTo(UPDATED_DOMAIN);
+        assertThat(testRequest.getAmountrequested()).isEqualTo(UPDATED_AMOUNTREQUESTED);
 
         // Validate the Request in ElasticSearch
         Request requestEs = requestSearchRepository.findOne(testRequest.getId());
@@ -344,6 +354,7 @@ public class RequestResourceIntTest {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
             .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
+            .andExpect(jsonPath("$.[*].amountrequested").value(hasItem(DEFAULT_AMOUNTREQUESTED.intValue())));
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,6 +56,9 @@ public class Request implements Serializable {
     @Size(max = 25)
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
+
+    @Column(name = "amountrequested", precision=10, scale=2)
+    private BigDecimal amountrequested;
 
     @OneToMany(mappedBy = "requestlhs")
     @JsonIgnore
@@ -128,6 +132,14 @@ public class Request implements Serializable {
         this.domain = domain;
     }
 
+    public BigDecimal getAmountrequested() {
+        return amountrequested;
+    }
+
+    public void setAmountrequested(BigDecimal amountrequested) {
+        this.amountrequested = amountrequested;
+    }
+
     public Set<Requestprojectmbr> getRequestprojectmbrlhs() {
         return requestprojectmbrlhs;
     }
@@ -190,6 +202,7 @@ public class Request implements Serializable {
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
+            ", amountrequested='" + amountrequested + "'" +
             '}';
     }
 }
