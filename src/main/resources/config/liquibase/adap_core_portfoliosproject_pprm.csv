@@ -1,0 +1,4 @@
+id, name, nameshort, description, status, lastmodifiedby, lastmodifieddatetime,domain, recordtype_id
+20000,"Office of Information Technology","OIT","OIT  is charged with establishing, monitoring and maintaining information technology systems and services.","Active","echasin","2016-11-12 00:00:00","PPRM",400
+20001,"Office of Intelligence & Analysis","OIA","OIA is charged with preparation and dissemination of finished intelligence.","Active","echasin","2016-11-12 00:00:00","PPRM",400
+
