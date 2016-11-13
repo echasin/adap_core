@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -32,10 +33,36 @@ public class Request implements Serializable {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
+    @Size(max = 255)
+    @Column(name = "description", length = 255)
+    private String description;
+
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "status", length = 25, nullable = false)
+    private String status;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "lastmodifiedby", length = 50, nullable = false)
+    private String lastmodifiedby;
+
+    @NotNull
+    @Column(name = "lastmodifieddatetime", nullable = false)
+    private ZonedDateTime lastmodifieddatetime;
+
+    @NotNull
+    @Size(max = 25)
+    @Column(name = "domain", length = 25, nullable = false)
+    private String domain;
+
     @OneToMany(mappedBy = "requestlhs")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Requestprojectmbr> requestprojectmbrlhs = new HashSet<>();
+
+    @ManyToOne
+    private Recordtype recordtype;
 
     public Long getId() {
         return id;
@@ -53,12 +80,60 @@ public class Request implements Serializable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLastmodifiedby() {
+        return lastmodifiedby;
+    }
+
+    public void setLastmodifiedby(String lastmodifiedby) {
+        this.lastmodifiedby = lastmodifiedby;
+    }
+
+    public ZonedDateTime getLastmodifieddatetime() {
+        return lastmodifieddatetime;
+    }
+
+    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+        this.lastmodifieddatetime = lastmodifieddatetime;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     public Set<Requestprojectmbr> getRequestprojectmbrlhs() {
         return requestprojectmbrlhs;
     }
 
     public void setRequestprojectmbrlhs(Set<Requestprojectmbr> requestprojectmbrs) {
         this.requestprojectmbrlhs = requestprojectmbrs;
+    }
+
+    public Recordtype getRecordtype() {
+        return recordtype;
+    }
+
+    public void setRecordtype(Recordtype recordtype) {
+        this.recordtype = recordtype;
     }
 
     @Override
@@ -86,6 +161,11 @@ public class Request implements Serializable {
         return "Request{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", description='" + description + "'" +
+            ", status='" + status + "'" +
+            ", lastmodifiedby='" + lastmodifiedby + "'" +
+            ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
+            ", domain='" + domain + "'" +
             '}';
     }
 }

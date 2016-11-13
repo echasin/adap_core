@@ -24,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,8 +46,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class RequestResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_LASTMODIFIEDBY = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_LASTMODIFIEDDATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_LASTMODIFIEDDATETIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
+    private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private RequestRepository requestRepository;
@@ -77,6 +95,11 @@ public class RequestResourceIntTest {
         requestSearchRepository.deleteAll();
         request = new Request();
         request.setName(DEFAULT_NAME);
+        request.setDescription(DEFAULT_DESCRIPTION);
+        request.setStatus(DEFAULT_STATUS);
+        request.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
+        request.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
+        request.setDomain(DEFAULT_DOMAIN);
     }
 
     @Test
@@ -96,6 +119,11 @@ public class RequestResourceIntTest {
         assertThat(requests).hasSize(databaseSizeBeforeCreate + 1);
         Request testRequest = requests.get(requests.size() - 1);
         assertThat(testRequest.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testRequest.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testRequest.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testRequest.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
+        assertThat(testRequest.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
+        assertThat(testRequest.getDomain()).isEqualTo(DEFAULT_DOMAIN);
 
         // Validate the Request in ElasticSearch
         Request requestEs = requestSearchRepository.findOne(testRequest.getId());
@@ -122,6 +150,78 @@ public class RequestResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = requestRepository.findAll().size();
+        // set the field null
+        request.setStatus(null);
+
+        // Create the Request, which fails.
+
+        restRequestMockMvc.perform(post("/api/requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(request)))
+                .andExpect(status().isBadRequest());
+
+        List<Request> requests = requestRepository.findAll();
+        assertThat(requests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifiedbyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = requestRepository.findAll().size();
+        // set the field null
+        request.setLastmodifiedby(null);
+
+        // Create the Request, which fails.
+
+        restRequestMockMvc.perform(post("/api/requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(request)))
+                .andExpect(status().isBadRequest());
+
+        List<Request> requests = requestRepository.findAll();
+        assertThat(requests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkLastmodifieddatetimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = requestRepository.findAll().size();
+        // set the field null
+        request.setLastmodifieddatetime(null);
+
+        // Create the Request, which fails.
+
+        restRequestMockMvc.perform(post("/api/requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(request)))
+                .andExpect(status().isBadRequest());
+
+        List<Request> requests = requestRepository.findAll();
+        assertThat(requests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDomainIsRequired() throws Exception {
+        int databaseSizeBeforeTest = requestRepository.findAll().size();
+        // set the field null
+        request.setDomain(null);
+
+        // Create the Request, which fails.
+
+        restRequestMockMvc.perform(post("/api/requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(request)))
+                .andExpect(status().isBadRequest());
+
+        List<Request> requests = requestRepository.findAll();
+        assertThat(requests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllRequests() throws Exception {
         // Initialize the database
         requestRepository.saveAndFlush(request);
@@ -131,7 +231,12 @@ public class RequestResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+                .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -145,7 +250,12 @@ public class RequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(request.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
+            .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
     @Test
@@ -168,6 +278,11 @@ public class RequestResourceIntTest {
         Request updatedRequest = new Request();
         updatedRequest.setId(request.getId());
         updatedRequest.setName(UPDATED_NAME);
+        updatedRequest.setDescription(UPDATED_DESCRIPTION);
+        updatedRequest.setStatus(UPDATED_STATUS);
+        updatedRequest.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
+        updatedRequest.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
+        updatedRequest.setDomain(UPDATED_DOMAIN);
 
         restRequestMockMvc.perform(put("/api/requests")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -179,6 +294,11 @@ public class RequestResourceIntTest {
         assertThat(requests).hasSize(databaseSizeBeforeUpdate);
         Request testRequest = requests.get(requests.size() - 1);
         assertThat(testRequest.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testRequest.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testRequest.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testRequest.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
+        assertThat(testRequest.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
+        assertThat(testRequest.getDomain()).isEqualTo(UPDATED_DOMAIN);
 
         // Validate the Request in ElasticSearch
         Request requestEs = requestSearchRepository.findOne(testRequest.getId());
@@ -219,6 +339,11 @@ public class RequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }

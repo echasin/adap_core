@@ -29,6 +29,12 @@
             "otherEntityName": "portfolio",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "recordtype"
+        },
+		{
+            "relationshipName": "request",
+            "otherEntityName": "request",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
         }
     ],
     "fields": [
