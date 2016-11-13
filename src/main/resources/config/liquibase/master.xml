@@ -61,7 +61,7 @@
 	
 	<!-- DATA LOADING FILES  -->
 	<include file="classpath:config/liquibase/changelog/load_adap_0.xml" relativeToChangelogFile="false"/> 
-	<!-- <include file="classpath:config/liquibase/changelog/load_adap_core_pprm.xml" relativeToChangelogFile="false"/> -->
+	<include file="classpath:config/liquibase/changelog/load_adap_core_pprm.xml" relativeToChangelogFile="false"/>
 	<include file="classpath:config/liquibase/changelog/restart_id_seq.xml" relativeToChangelogFile="false"/>
 
 

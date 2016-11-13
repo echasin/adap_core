@@ -16,16 +16,23 @@
 	<!-- Added the entity data. -->
 	
 
-	<changeSet id="load_adap_0" author="jhipster">
-	
-		<!-- 		<loadData encoding="UTF-8"
-			file="config/liquibase/adap_core_projects_pprm.csv" separator=","
-			tableName="projects" />
-	 	-->
+	<changeSet id="load_adap_core_pprm" author="jhipster">
 	
 		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_projects_pprm.csv" separator=","
+			tableName="project" />
+
+		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_portfolios_pprm.csv" separator=","
-			tableName="portfolios" />
+			tableName="portfolio" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_portfolioprojectmbrs_pprm.csv" separator=","
+			tableName="portfolioprojectmbr" />
+ 
+ 		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_projectprojectmbrs_pprm.csv" separator=","
+			tableName="portfolioprojectmbr" />
  
 	</changeSet>
 
