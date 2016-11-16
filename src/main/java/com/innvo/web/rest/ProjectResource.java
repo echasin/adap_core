@@ -165,4 +165,13 @@ public class ProjectResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/projectsByRecordtype/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public List<Project> getProjectsByRecordtype(@PathVariable long id) {
+            log.debug("REST request to get Project : {}", id);
+            List<Project> projects = projectRepository.findByRecordtypeId(id);
+            return projects;
+        }
 }
