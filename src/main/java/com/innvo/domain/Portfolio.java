@@ -52,8 +52,8 @@ public class Portfolio implements Serializable {
     @Column(name = "lastmodifiedby", length = 50, nullable = false)
     private String lastmodifiedby;
 
-    @NotNull
-    @Column(name = "lastmodifieddatetime", nullable = false)
+    
+    @Column(name = "lastmodifieddatetime")
     private ZonedDateTime lastmodifieddatetime;
 
     @NotNull
