@@ -1,9 +1,25 @@
 package com.innvo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.innvo.domain.Fiscalyear;
 import com.innvo.domain.Portfolio;
+import com.innvo.domain.Portfolioprojectmbr;
+import com.innvo.domain.Project;
+import com.innvo.domain.Recordtype;
+import com.innvo.domain.Request;
+import com.innvo.domain.Requestprojectmbr;
+import com.innvo.domain.Requeststate;
+import com.innvo.repository.FiscalyearRepository;
 import com.innvo.repository.PortfolioRepository;
+import com.innvo.repository.PortfolioprojectmbrRepository;
+import com.innvo.repository.ProjectRepository;
+import com.innvo.repository.RecordtypeRepository;
+import com.innvo.repository.RequestRepository;
+import com.innvo.repository.RequestprojectmbrRepository;
+import com.innvo.repository.RequeststateRepository;
 import com.innvo.repository.search.PortfolioSearchRepository;
+import com.innvo.web.rest.dto.ChartDTO;
+import com.innvo.web.rest.dto.FinancialDTO;
 import com.innvo.web.rest.util.HeaderUtil;
 import com.innvo.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -22,6 +38,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +61,27 @@ public class PortfolioResource {
     
     @Inject
     private PortfolioSearchRepository portfolioSearchRepository;
+    
+    @Inject
+    RequestRepository requestRepository;
+    
+    @Inject
+    RequestprojectmbrRepository requestprojectmbrRepository;
+    
+    @Inject
+    ProjectRepository projectRepository;
+    
+    @Inject
+    RecordtypeRepository recordtypeRepository;
+    
+    @Inject
+    RequeststateRepository requeststateRepository; 
+    
+    @Inject
+    FiscalyearRepository fiscalyearRepository; 
+    
+    @Inject
+    PortfolioprojectmbrRepository portfolioprojectmbrRepository; 
     
     /**
      * POST  /portfolios : Create a new portfolio.
@@ -175,5 +213,52 @@ public class PortfolioResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/portfolios");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/financial",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public List<FinancialDTO> getFinancial(Pageable pageable)
+            throws URISyntaxException {
+            log.debug("REST request to get a page of Portfolios");
+            List<FinancialDTO> financialDTOs=new ArrayList<FinancialDTO>();
+            List<Requestprojectmbr> requestprojectmbrs=requestprojectmbrRepository.findAll();
+            for(Requestprojectmbr requestprojectmbr:requestprojectmbrs){
+            	Project project=projectRepository.findOne(requestprojectmbr.getProjectrhs().getId());
+            	Request request=requestRepository.findOne(requestprojectmbr.getRequestlhs().getId());
+            	Recordtype recordtype=recordtypeRepository.findOne(project.getRecordtype().getId());
+            	Fiscalyear fiscalyear=fiscalyearRepository.findOne(request.getFiscalyear().getId());
+            	Requeststate requeststate=requeststateRepository.findOne(request.getRequeststate().getId());
+            	FinancialDTO financialDTO=new FinancialDTO();
+            	financialDTO.setProjectName(project.getName());
+            	financialDTO.setRecordtypeName(recordtype.getName());
+            	financialDTO.setRequeststateName(requeststate.getName());
+            	financialDTO.setFiscalyearValue(fiscalyear.getValue());
+            	financialDTO.setAmountrequested(request.getAmountrequested());
+            	financialDTOs.add(financialDTO);
+            }
+           
+            return financialDTOs;
+        }
+
+    @RequestMapping(value = "/chartData",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public List<ChartDTO> getChartData(Pageable pageable)
+            throws URISyntaxException {
+            log.debug("REST request to get a page of Portfolios");
+            List<ChartDTO> chartDTOs=new ArrayList<ChartDTO>();
+            List<Portfolio> portfolios=portfolioRepository.findAll();
+            for(Portfolio portfolio:portfolios){
+            	ChartDTO chartDTO=new ChartDTO();
+            	int count=portfolioprojectmbrRepository.countByPortfoliolhsId(portfolio.getId());            	
+                chartDTO.setNameShort(portfolio.getNameshort());
+          	    chartDTO.setCountProject(count);
+          	    chartDTOs.add(chartDTO);
+            }
+            
+            return chartDTOs;
+        }
 
 }
