@@ -49,6 +49,14 @@
  		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_requestprojectmbr_pprm.csv" separator=","
 			tableName="requestprojectmbr" />
+			
+ 		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_activities_pprm.csv" separator=","
+			tableName="activity" />
+			
+		<loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_activitiesmbr_pprm.csv" separator=","
+			tableName="activitymbr" />
  
 	</changeSet>
 

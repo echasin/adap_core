@@ -1,0 +1,30 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "activity",
+            "otherEntityName": "activity",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "project",
+            "otherEntityName": "project",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "asset",
+            "otherEntityName": "asset",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20161120220122",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "activitymbr",
+    "pagination": "no",
+    "microserviceName": "adap_core",
+    "searchEngine": "elasticsearch"
+}

@@ -1,52 +1,13 @@
 {
     "relationships": [
-        {
-            "relationshipName": "projectprojectmbrlhs",
-            "otherEntityName": "projectprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectlhs"
-        },
-        {
-            "relationshipName": "projectprojectmbrmbrrhs",
-            "otherEntityName": "projectprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectrhs"
-        },
-		{
-            "relationshipName": "portfolioprojectmbrrhs",
-            "otherEntityName": "portfolioprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectrhs"
-        },
-		{
-            "relationshipName": "requestprojectmbrrhs",
-            "otherEntityName": "requestprojectmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "projectrhs"
-        },
-		{
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
-            "relationshipName": "subcategory",
-            "otherEntityName": "subcategory",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
+	 {
             "relationshipName": "recordtype",
             "otherEntityName": "recordtype",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
-        }
-    ],
+     }],
     "fields": [
-        {
+	   {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -71,6 +32,12 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "255"
+        },
+		{
+            "fieldName": "activitydatetime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+            ]
         },
         {
             "fieldName": "status",
@@ -106,11 +73,11 @@
             ],
             "fieldValidateRulesMaxlength": "25"
         }
-    ],
-    "changelogDate": "20161106004807",
+		],
+    "changelogDate": "20161120213339",
     "dto": "no",
     "service": "no",
-    "entityTableName": "project",
+    "entityTableName": "activity",
     "pagination": "pagination",
     "microserviceName": "adap_core",
     "searchEngine": "elasticsearch"

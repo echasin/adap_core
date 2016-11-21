@@ -35,6 +35,12 @@
             "otherEntityName": "request",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "recordtype"
+        },
+		{
+            "relationshipName": "activity",
+            "otherEntityName": "activity",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
         }
     ],
     "fields": [
