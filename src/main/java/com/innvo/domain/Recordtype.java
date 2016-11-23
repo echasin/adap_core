@@ -78,7 +78,7 @@ public class Recordtype implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Organization> organizations = new HashSet<>();
 
-    @OneToMany(mappedBy = "recordtype")
+    @OneToMany(mappedBy = "recordtype",fetch = FetchType.EAGER)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Project> projects = new HashSet<>();

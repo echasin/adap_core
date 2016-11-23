@@ -12,4 +12,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface PortfolioprojectmbrRepository extends JpaRepository<Portfolioprojectmbr,Long> {
 
+	
+	int countByPortfoliolhsId(long id);
 }
