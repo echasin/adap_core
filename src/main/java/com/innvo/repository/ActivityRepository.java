@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ActivityRepository extends JpaRepository<Activity,Long> {
 
+	List<Activity> findByRecordtypeId(long id);
 }

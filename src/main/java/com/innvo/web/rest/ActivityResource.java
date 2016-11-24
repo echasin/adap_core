@@ -2,7 +2,10 @@ package com.innvo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.innvo.domain.Activity;
+import com.innvo.domain.ActivityInbox;
+import com.innvo.domain.Activitymbr;
 import com.innvo.repository.ActivityRepository;
+import com.innvo.repository.ActivitymbrRepository;
 import com.innvo.repository.search.ActivitySearchRepository;
 import com.innvo.web.rest.util.HeaderUtil;
 import com.innvo.web.rest.util.PaginationUtil;
@@ -20,6 +23,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +45,9 @@ public class ActivityResource {
     
     @Inject
     private ActivitySearchRepository activitySearchRepository;
+    
+    @Inject
+    ActivitymbrRepository activitymbrRepository;
     
     /**
      * POST  /activities : Create a new activity.
@@ -164,5 +171,35 @@ public class ActivityResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/activities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * 
+     * @param pageable
+     * @return
+     * @throws URISyntaxException
+     * @throws NullPointerException
+     */
+     
+    @RequestMapping(value = "/activitiesBox/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<ActivityInbox>> getAllActivitiesBox(Pageable pageable,@PathVariable long id)
+            throws URISyntaxException,NullPointerException {
+    	    List<ActivityInbox> activityInboxs=new ArrayList<ActivityInbox>();
+            List<Activity> activities = activityRepository.findByRecordtypeId(id);
+            for(Activity activity:activities){
+            	Activitymbr activitymbr = activitymbrRepository.findOne(activity.getId());
+            	ActivityInbox activityInbox=new ActivityInbox();
+            	activityInbox.setActivity(activity);
+            	try{
+            	activityInbox.setProject(activitymbr.getProject());
+            	}catch (NullPointerException e) {
+					System.out.println("null");
+				}
+            	activityInboxs.add(activityInbox);
+            }
+            return new ResponseEntity<>(activityInboxs, HttpStatus.OK);
+        }
 
 }
