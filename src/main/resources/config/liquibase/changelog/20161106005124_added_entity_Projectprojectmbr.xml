@@ -53,18 +53,5 @@
         </createTable>
         <dropDefaultValue tableName="projectprojectmbr" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
-        <!-- THIS TABLE IS NOT REQUIRED -->
-        <!-- createTable tableName="projectprojectmbr_category">
-            <column name="categories_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="projectprojectmbrs_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-     
-
-        <addPrimaryKey columnNames="projectprojectmbrs_id, categories_id" tableName="projectprojectmbr_category"/>
-        -->
     </changeSet>
 </databaseChangeLog>

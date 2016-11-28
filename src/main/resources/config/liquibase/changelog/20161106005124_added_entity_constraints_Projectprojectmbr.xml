@@ -20,19 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="project"/>
 
-        <!-- THIS TABLE IS NOT REQUIRED -->
-        <!--  
-        <addForeignKeyConstraint baseColumnNames="projectprojectmbrs_id"
-                                 baseTableName="projectprojectmbr_category"
-                                 constraintName="fk_projectprojectmbr_category_category_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="projectprojectmbr"/>
-        <addForeignKeyConstraint baseColumnNames="categories_id"
-                                 baseTableName="projectprojectmbr_category"
-                                 constraintName="fk_projectprojectmbr_category_projectprojectmbr_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="category"/>
-        -->
-        
     </changeSet>
 </databaseChangeLog>

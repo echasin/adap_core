@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ActivitymbrResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Activitymbr> createActivitymbr(@RequestBody Activitymbr activitymbr) throws URISyntaxException {
+    public ResponseEntity<Activitymbr> createActivitymbr(@Valid @RequestBody Activitymbr activitymbr) throws URISyntaxException {
         log.debug("REST request to save Activitymbr : {}", activitymbr);
         if (activitymbr.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("activitymbr", "idexists", "A new activitymbr cannot already have an ID")).body(null);
@@ -74,7 +75,7 @@ public class ActivitymbrResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Activitymbr> updateActivitymbr(@RequestBody Activitymbr activitymbr) throws URISyntaxException {
+    public ResponseEntity<Activitymbr> updateActivitymbr(@Valid @RequestBody Activitymbr activitymbr) throws URISyntaxException {
         log.debug("REST request to update Activitymbr : {}", activitymbr);
         if (activitymbr.getId() == null) {
             return createActivitymbr(activitymbr);
