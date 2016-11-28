@@ -201,5 +201,20 @@ public class ActivityResource {
             }
             return new ResponseEntity<>(activityInboxs, HttpStatus.OK);
         }
+    
+    @RequestMapping(value = "/activitiesByProject/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<Activity>> getActivitiesByProject(@PathVariable long id)
+            throws URISyntaxException{
+    	    List<Activity> activities=new ArrayList<Activity>(); 
+    	    List<Activitymbr> activitymbrs = activitymbrRepository.findByProjectId(id);
+    	    for(Activitymbr activitymbr:activitymbrs){
+               Activity activity = activityRepository.findOne(activitymbr.getActivity().getId());
+               activities.add(activity);
+    	    }
+            return new ResponseEntity<>(activities, HttpStatus.OK);
+        }
 
 }

@@ -11,5 +11,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ActivitymbrRepository extends JpaRepository<Activitymbr,Long> {
+	
+	List<Activitymbr> findByProjectId(long id);
 
 }
