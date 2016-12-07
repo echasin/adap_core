@@ -165,8 +165,24 @@ public class PortfolioprojectmbrResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     
-    
 
+    /**
+     * 
+     * @param pageable
+     * @return
+     * @throws URISyntaxException
+     */
+    @RequestMapping(value = "/portfolioprojectmbrs/{id}/{name}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Portfolioprojectmbr>> getPortfolioprojectmbrs(@PathVariable("id") long id, 
+    		           @PathVariable("name") String name,Pageable pageable)
+        throws URISyntaxException {
+        Page<Portfolioprojectmbr> page = portfolioprojectmbrRepository.findByPortfoliolhsIdAndProjectrhsRecordtypeName(id, name, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/portfolioprojectmbrs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
     
 
 }
