@@ -1,4 +1,4 @@
 id,name,nameshort,description,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
-1000,Portfolio One,Port1,Portfolio Description One,Active,echasin,2016-11-12 00:00:00,TEST,400
-1001,Portfolio Two,Port2,Portfolio Description Two,Active,echasin,2016-11-12 00:00:00,TEST,400
-1002,Portfolio Three,Port3,Portfolio Description Three,Active,echasin,2016-11-12 00:00:00,TEST,400
+1000,Portfolio One,Port1,Portfolio Description One,Active,echasin,11/12/2016 0:00,TEST,400
+1100,Portfolio Two,Port2,Portfolio Description Two,Active,echasin,11/12/2016 0:00,TEST,400
+1200,Portfolio Three,Port3,Portfolio Description Three,Active,echasin,11/12/2016 0:00,TEST,400
