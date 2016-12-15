@@ -8,8 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -57,13 +55,6 @@ public class Projectprojectmbr implements Serializable {
     @ManyToOne
     @NotNull
     private Project projectrhs;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "projectprojectmbr_category",
-               joinColumns = @JoinColumn(name="projectprojectmbrs_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
-    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -127,14 +118,6 @@ public class Projectprojectmbr implements Serializable {
 
     public void setProjectrhs(Project project) {
         this.projectrhs = project;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
     }
 
     @Override

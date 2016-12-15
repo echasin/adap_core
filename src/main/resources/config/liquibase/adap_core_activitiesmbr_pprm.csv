@@ -1,2 +1,5 @@
-id, activity_id, project_id, asset_id
-30000,30002,1000,null
+id,activity_id,project_id,asset_id,comment,status,lastmodifiedby,lastmodifieddatetime,domain
+30000,30000,20001,null,null,Active,echasin,2016-11-20 00:00:00,PPRM
+30001,30001,20001,null,null,Active,echasin,2016-11-20 00:00:00,PPRM
+30002,30002,20001,null,null,Active,echasin,2016-11-20 00:00:00,PPRM
+30003,30003,20001,null,null,Active,echasin,2016-11-20 00:00:00,PPRM

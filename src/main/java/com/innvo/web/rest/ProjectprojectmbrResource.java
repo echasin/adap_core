@@ -121,7 +121,7 @@ public class ProjectprojectmbrResource {
     @Timed
     public ResponseEntity<Projectprojectmbr> getProjectprojectmbr(@PathVariable Long id) {
         log.debug("REST request to get Projectprojectmbr : {}", id);
-        Projectprojectmbr projectprojectmbr = projectprojectmbrRepository.findOneWithEagerRelationships(id);
+        Projectprojectmbr projectprojectmbr = projectprojectmbrRepository.findOne(id);
         return Optional.ofNullable(projectprojectmbr)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -165,4 +165,16 @@ public class ProjectprojectmbrResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    
+    @RequestMapping(value = "/projectprojectmbrsByProject/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Projectprojectmbr>> getProjectprojectmbrs(@PathVariable long id,Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Projectprojectmbrs by project");
+        Page<Projectprojectmbr> page = projectprojectmbrRepository.findByProjectrhsIdOrProjectlhsId(id, id ,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/projectprojectmbrs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 }

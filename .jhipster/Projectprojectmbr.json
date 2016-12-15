@@ -17,13 +17,6 @@
                 "required"
             ],
             "otherEntityField": "name"
-        },
-		{
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
         }
     ],
     "fields": [

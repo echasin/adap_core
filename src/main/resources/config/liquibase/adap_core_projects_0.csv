@@ -19,3 +19,5 @@ id,name,nameshort,description,status,lastmodifiedby,lastmodifieddatetime,domain,
 1017,Project Eight,Prj8,Project Description Eight,Active,echasin,2016-11-12 00:00:00,TEST,402
 1018,Project Nine,Prj9,Project Description Nine,Active,echasin,2016-11-12 00:00:00,TEST,402
 1019,Project Ten,Prj10,Project Description Ten,Active,echasin,2016-11-12 00:00:00,TEST,402
+1100,Program 1100,Prg1100,Project Description 1110,Active,echasin,2016-11-12 00:00:00,TEST,400
+1200,Program 1200,Prj1200,Project Description 1110,Active,echasin,2016-11-12 00:00:00,TEST,402
