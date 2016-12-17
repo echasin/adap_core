@@ -1,5 +1,5 @@
 id,name,nameshort,description,status,lastmodifiedby,lastmodifieddatetime,domain
-1000,Asset One,Asset One,Asset One Description,Active,echasin,2016-06-09 00:00:00,DEV
-1001,Asset Two,Asset Two,Asset Two Description,Active,echasin,2016-06-09 00:20:52,DEV
-2000,C4653,C4653,Test Record (Positive Test) for workflowevent.bpnm2,Active,echasin,2016-06-09 00:20:52,DEV
-3000,CXXXX,CXXXX,"Test Record (NegativeTest) for workflowevent.bpnm2 . {""total"":0,""max_score"":null,""hits"":[]}}",Active,echasin,2016-06-09 00:20:52,DEV
+1000,Asset One,Asset One,Asset One Description,Active,echasin,2016-06-09 00:00:00,TEST
+1001,Asset Two,Asset Two,Asset Two Description,Active,echasin,2016-06-09 00:20:52,TEST
+2000,C4653,C4653,Test Record (Positive Test) for workflowevent.bpnm2,Active,echasin,2016-06-09 00:20:52,TEST
+3000,CXXXX,CXXXX,"Test Record (NegativeTest) for workflowevent.bpnm2 . {""total"":0,""max_score"":null,""hits"":[]}}",Active,echasin,2016-06-09 00:20:52,TEST
