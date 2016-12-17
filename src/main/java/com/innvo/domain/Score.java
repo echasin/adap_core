@@ -71,7 +71,7 @@ public class Score implements Serializable {
     private String details;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private Status status;
