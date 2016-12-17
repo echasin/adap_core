@@ -29,10 +29,19 @@ public class Asset implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false)
+    @Size(max = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "nameshort", length = 20, nullable = false)
+    private String nameshort;
+
+	@Size(max = 255)
+    @Column(name = "description", length = 255)
+    private String description;
+ 
     @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
@@ -113,6 +122,23 @@ public class Asset implements Serializable {
         this.name = name;
     }
 
+
+    public String getNameshort() {
+		return nameshort;
+	}
+
+	public void setNameshort(String nameshort) {
+		this.nameshort = nameshort;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
     public String getStatus() {
         return status;
     }
