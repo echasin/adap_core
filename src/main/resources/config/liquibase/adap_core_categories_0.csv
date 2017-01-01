@@ -2,3 +2,7 @@ id,recordtype_id,name,description,status,lastmodifiedby,lastmodifieddatetime,dom
 101,102,Host,"An instance of a computer operating system, almost always networked. Distinct from Machine.",Active,echasin,2016-09-01 00:00:00,CYBER1
 102,102,VPC,Virtual Private Cloud (VPC) enables you to launch resources (hosts) into a virtual network that you've defined. This virtual network closely resembles a traditional network operating in a data center,Active,echasin,2016-09-01 00:00:00,CYBER1
 103,102,Subnet,A subnet is a logical grouping of connected network devices that tend to be located in close physical proximity to each other.,Active,echasin,2016-09-01 00:00:00,CYBER1
+500,500,Attack:Scenario,Attack Scenarios are known as Attack Trees and are user in risk analysis,Active,echasin,2016-09-01 00:00:00,TEST
+600,600,Goal:Pathway,Goal is the outcome of adversary for a Attack Scenario,Active,echasin,2016-09-01 00:00:00,TEST
+601,600,Activity:Pathway,Activity is the step(s) that make up a Attack Scenario,Active,echasin,2016-09-01 00:00:00,TEST
+602,600,Pathway:Pathway,Pathway choice(s) that that adversary can use for accomplish a Activity,Active,echasin,2016-09-01 00:00:00,TEST
