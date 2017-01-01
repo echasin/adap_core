@@ -6,6 +6,8 @@ id,objecttype,name,description,status,lastmodifiedby,lastmodifieddatetime,domain
 300,Event,Information Technology,null,Active,echasin,2016-09-01 00:00:00,DEMO
 400,Project,Program,null,Active,echasin,2016-09-01 00:00:00,DEMO
 402,Project,Project,null,Active,echasin,2016-09-01 00:00:00,DEMO
+500,Scenario,Attack Scenario,null,Active,echasin,2016-09-01 00:00:00,TEST
+600,Pathway,Scenario Pathway,null,Active,echasin,2016-09-01 00:00:00,TEST
 30000,Activity,Key Date,null,Active,echasin,2016-09-01 00:00:00,PPRM
 30001,Activity,Request,null,Active,echasin,2016-09-01 00:00:00,PPRM
 30002,Activity,Concurrence,null,Active,echasin,2016-09-01 00:00:00,PPRM
