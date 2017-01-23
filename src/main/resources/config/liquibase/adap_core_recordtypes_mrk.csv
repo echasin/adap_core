@@ -1,0 +1,6 @@
+id, objecttype, name, description, status, lastmodifiedby, lastmodifieddatetime,domain
+100000,"Scenario","Attack Scenario","Attack Scenario is Recordtype for Scenario Objecttype. An Attack Scenario is root element of Attack Tree","Active","echasin","2017-01-22 00:00:00","MRK"
+100019,"Pathway","Attack:Goal","An Attack:GOal  is Recordtype for Objecttype Pathway.  An Attack Goal  is the  root element of Attack Tree","Active","echasin","2017-01-22 00:00:00","MRK"
+100018,"Pathway","Attack:Method","An Attack Method  is Recordtype for Objecttype Pathway.  An Attack Method is sub-node element of an Attack Vector","Active","echasin","2017-01-22 00:00:00","MRK"
+100001,"Pathway","Attack:Vector","An Attack Vector is Recordtype for Objecttype Pathway.  An Attack Vector is a node element of Attack Tree","Active","echasin","2017-01-22 00:00:00","MRK"
+100022,"Countermeasure","Counter Measure","Counter Measures are applicable to Attack Methods","Active","echasin","2017-01-22 00:00:00","MRK"
