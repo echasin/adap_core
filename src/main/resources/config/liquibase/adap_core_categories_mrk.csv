@@ -1,0 +1,9 @@
+id, name, description, status, lastmodifiedby, lastmodifieddatetime, domain, recordtype_id
+100000,"Kinetic Attack (Ramming)","Attack Scenario:Attack Family = Kinetic Attack","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100001,"Chemical Agent","Attack Scenario: Attack Family-Chemical","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100002,"Explosives","Attack Scenario: Attack Family-Explosives","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100003,"Hostage Taking","Attack Scenario: Attack Family-Hostage Taking","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100004,"Cyber Attack","Attack Scenario: Attack Family-Cyber Attack","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100005,"Radiological Dispersion (Radiate)","Attack Scenario:Attack Family-Radiological Dispersion (Radiate)","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100006,"Stand-Off Weapon Attack (Rockets & Rifles)","Attack Scenario:Attack - Stand-Off Weapon Attack (Rockets & Rifles)","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100007,"Sabotage (Break)","Attack Scenario: Attack Family-Sabotage (Break)","Active","echasin","2017-01-23 00:00:00","MRK",100000

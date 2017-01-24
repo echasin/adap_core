@@ -21,6 +21,9 @@
 		<loadData encoding="UTF-8"
 			file="config/liquibase/adap_core_recordtypes_mrk.csv" separator=","
 			tableName="recordtype" />
+        <loadData encoding="UTF-8"
+			file="config/liquibase/adap_core_categories_mrk.csv" separator=","
+			tableName="category" />	
  
 	</changeSet>
 
