@@ -28,7 +28,7 @@ spring:
             enabled: true
         livereload:
             enabled: false # we use gulp + BrowserSync for livereload
-    datasource:
+    datasource: #MRK Demo Data Base
         url: jdbc:postgresql://localhost:5432/adap_mrk
         name:
         username: postgres
