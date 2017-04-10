@@ -7,3 +7,8 @@ id, name, description, status, lastmodifiedby, lastmodifieddatetime, domain, rec
 100005,"Radiological Dispersion (Radiate)","Attack Scenario:Attack Family-Radiological Dispersion (Radiate)","Active","echasin","2017-01-23 00:00:00","MRK",100000
 100006,"Stand-Off Weapon Attack (Rockets & Rifles)","Attack Scenario:Attack - Stand-Off Weapon Attack (Rockets & Rifles)","Active","echasin","2017-01-23 00:00:00","MRK",100000
 100007,"Sabotage (Break)","Attack Scenario: Attack Family-Sabotage (Break)","Active","echasin","2017-01-23 00:00:00","MRK",100000
+100008,"CATEGORY 1 for Attack Vector","CATEGORY for Attack Vector","Active","echasin","2017-04-09 00:00:00","MRK",100001
+100009,"CATEGORY 2 for Attack Vector","CATEGORY for Attack Vector","Active","echasin","2017-04-09 00:00:00","MRK",100001
+100010,"CATEGORY for Target Facilities","CATEGORY for Target Facilties","Active","echasin","2017-04-09 00:00:00","MRK",100002
+100011,"CATEGORY for Weapon","CATEGORY for Weapon","Active","echasin","2017-04-09 00:00:00","MRK",100007
+100012,"Category for CounterMeasure Personnel","Category for CounterMeasure  Personnel","Active","echasin","2017-04-09 00:00:00","MRK",100016
